@@ -121,11 +121,4 @@ Full scorecards: [benchmark report](experiments/jev_mode_benchmark/REPORT.md) ·
 [27B](experiments/jev_mode_benchmark/REPORT_qwen38_27b.md) ·
 [Flash](experiments/jev_mode_benchmark/REPORT_deepseek_v41_flash.md).
 
-## Docs
 
-| Doc | For |
-| --- | --- |
-| [docs/USAGE.md](docs/USAGE.md) | Backends, env, HTTP serve, primitives |
-| [DESIGN.md](DESIGN.md) | Locks, logprob math, isolation, Phases 2–3 |
-| [PROTOCOL.md](experiments/jev_mode_benchmark/PROTOCOL.md) | Benchmark protocol |
-| [REPORT.md](experiments/jev_mode_benchmark/REPORT.md) | Cross-model speed / quality |
