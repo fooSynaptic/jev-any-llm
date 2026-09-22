@@ -1,6 +1,6 @@
 # jev-any-llm
 
-**Wrap any instruct LLM into Jev-mode prediction — and make those decisions fast.**
+**Wrap any instruct LLM into Jev-mode prediction — and make those decisions SUPER fast.**
 
 Point any OpenAI-compatible API (or local HF weights) at typed questions
 (`Choice` / `Noul` / `Score`) over **program state**. The library scores closed
