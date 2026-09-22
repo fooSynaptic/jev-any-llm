@@ -8,6 +8,13 @@ options from logprobs (or early-exit mean-pool heads) and returns a Jev-shaped
 `answers` object your code can branch on. On AG News, that path lands
 **~15–88×** faster than the same model’s free-text baseline — see [Results](#results).
 
+| Decoder | Vanilla | L8 mean | Speedup | Δ Acc |
+| --- | ---: | ---: | ---: | ---: |
+| Qwen3.5-4B | 87.05% / 511 ms | **91.73%** / **12.0 ms** | **42.5×** | +4.7 pp |
+| Qwen3.8-27B | 87.0% / 1105 ms | **91.07%** / **12.6 ms** | **87.7×** | +4.1 pp |
+| DeepSeek-V4.1-Flash | 64.63% / 4440 ms | **91.62%** / **299 ms** | **14.9×** | +27 pp |
+
+Full scorecards: [benchmark report](experiments/jev_mode_benchmark/REPORT.md) ·
 
 ## Motivation
 
