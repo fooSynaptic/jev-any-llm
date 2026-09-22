@@ -1,0 +1,140 @@
+{
+  "model": "Qwen3.8-27B",
+  "dataset": "AG News",
+  "n": 4000,
+  "scheme_2_isolated": {
+    "metrics": {
+      "topic": {
+        "n": 4000,
+        "accuracy": 0.8695,
+        "nll": 0.5924996137619019,
+        "brier": 0.21883330048733046,
+        "ece_15": 0.08074618362635372,
+        "mean_max_probability": 0.9466533064842224,
+        "mean_entropy_confidence": 0.8908289074897766
+      },
+      "is_sports": {
+        "n": 4000,
+        "accuracy": 0.98425,
+        "nll": 0.06441012769937515,
+        "brier": 0.027874287589450826,
+        "ece_15": 0.007387763753533396,
+        "mean_max_probability": 0.9881534576416016,
+        "mean_entropy_confidence": 0.9430202841758728
+      },
+      "is_business": {
+        "n": 4000,
+        "accuracy": 0.81625,
+        "nll": 0.5368309617042542,
+        "brier": 0.29518329831346884,
+        "ece_15": 0.13144829007983205,
+        "mean_max_probability": 0.94418865442276,
+        "mean_entropy_confidence": 0.7989917993545532
+      },
+      "is_scitech": {
+        "n": 4000,
+        "accuracy": 0.871,
+        "nll": 0.27450454235076904,
+        "brier": 0.17584822680479545,
+        "ece_15": 0.04668180111050603,
+        "mean_max_probability": 0.8890095353126526,
+        "mean_entropy_confidence": 0.6969567537307739
+      }
+    },
+    "throughput_for_4n_prompts": {
+      "calls": 498,
+      "examples_per_call": 32,
+      "p50_ms": 2160.1275634765625,
+      "p95_ms": 2663.343591308593,
+      "mean_ms": 2224.9595854119602,
+      "qps": 14.38228370969492
+    }
+  },
+  "scheme_2_packed": {
+    "metrics": {
+      "topic": {
+        "n": 4000,
+        "accuracy": 0.857,
+        "nll": 0.556483805179596,
+        "brier": 0.2325870531243099,
+        "ece_15": 0.06787231244891885,
+        "mean_max_probability": 0.9224564433097839,
+        "mean_entropy_confidence": 0.8264472484588623
+      },
+      "is_sports": {
+        "n": 4000,
+        "accuracy": 0.68875,
+        "nll": 0.8824730515480042,
+        "brier": 0.5516494266537971,
+        "ece_15": 0.2711284525096417,
+        "mean_max_probability": 0.8033794164657593,
+        "mean_entropy_confidence": 0.347484827041626
+      },
+      "is_business": {
+        "n": 4000,
+        "accuracy": 0.69875,
+        "nll": 1.0524457693099976,
+        "brier": 0.5761502156397205,
+        "ece_15": 0.32579951539635654,
+        "mean_max_probability": 0.8676380515098572,
+        "mean_entropy_confidence": 0.5247914791107178
+      },
+      "is_scitech": {
+        "n": 4000,
+        "accuracy": 0.34025,
+        "nll": 1.234811782836914,
+        "brier": 0.8899271748934258,
+        "ece_15": 0.4132315850704909,
+        "mean_max_probability": 0.7534815669059753,
+        "mean_entropy_confidence": 0.26352161169052124
+      }
+    },
+    "throughput_for_n_articles": {
+      "calls": 123,
+      "examples_per_call": 32,
+      "p50_ms": 2879.212890625,
+      "p95_ms": 3404.3850830078127,
+      "mean_ms": 2893.9148961509145,
+      "qps": 11.057685228602256
+    },
+    "mean_l1_probability_shift_vs_isolated": {
+      "topic": 0.14744624495506287,
+      "is_sports": 0.8167737722396851,
+      "is_business": 0.4863002598285675,
+      "is_scitech": 1.0285766124725342
+    },
+    "argmax_flip_rate_vs_isolated": {
+      "topic": 0.057,
+      "is_sports": 0.3075,
+      "is_business": 0.145,
+      "is_scitech": 0.63025
+    },
+    "contract_note": "Packed answers are causally dependent and violate Jev isolation."
+  },
+  "single_article_gpu_latency": {
+    "isolated_sequential_4_prefills": {
+      "calls": 60,
+      "examples_per_call": 1,
+      "p50_ms": 358.953125,
+      "p95_ms": 364.26139373779296,
+      "mean_ms": 359.7995310465495,
+      "qps": 2.779325467966282
+    },
+    "isolated_batch4": {
+      "calls": 60,
+      "examples_per_call": 1,
+      "p50_ms": 284.8802795410156,
+      "p95_ms": 285.1930786132813,
+      "mean_ms": 284.93877970377605,
+      "qps": 3.509525804243303
+    },
+    "packed_1_prefill_plus_4_tokens": {
+      "calls": 60,
+      "examples_per_call": 1,
+      "p50_ms": 293.5552520751953,
+      "p95_ms": 297.15125274658203,
+      "mean_ms": 294.06385904947916,
+      "qps": 3.400621903121186
+    }
+  }
+}

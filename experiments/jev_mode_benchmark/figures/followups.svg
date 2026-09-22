@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 560"
+     font-family="Helvetica Neue,Arial,sans-serif">
+<defs><style>
+.title{font-size:20px;font-weight:700;fill:#1e293b}
+.subtitle{font-size:12px;fill:#64748b}
+.panel-title{font-size:13.5px;font-weight:700;fill:#1e293b}
+.axis{font-size:10.5px;fill:#64748b}
+.legend{font-size:11.5px;fill:#334155}
+</style></defs>
+<rect width="100%" height="100%" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="40" y="36" class="title">Follow-ups: task, type, MLP, prefix</text>
+<text x="40" y="56" class="subtitle">Frozen Qwen3.5-4B · mean pooling · temperature-calibrated linear head unless marked</text>
+<rect x="40" y="72" width="540" height="450" rx="10" fill="#fff" stroke="#e2e8f0"/>
+<text x="60" y="100" class="panel-title">Accuracy by exit layer, four tasks</text>
+<line x1="92" y1="351.4" x2="552" y2="351.4" stroke="#f1f5f9"/>
+<text x="84" y="355.4" text-anchor="end" class="axis">40</text>
+<line x1="92" y1="274.3" x2="552" y2="274.3" stroke="#f1f5f9"/>
+<text x="84" y="278.3" text-anchor="end" class="axis">60</text>
+<line x1="92" y1="197.1" x2="552" y2="197.1" stroke="#f1f5f9"/>
+<text x="84" y="201.1" text-anchor="end" class="axis">80</text>
+<line x1="92" y1="120.0" x2="552" y2="120.0" stroke="#f1f5f9"/>
+<text x="84" y="124.0" text-anchor="end" class="axis">100</text>
+<text x="92.0" y="408" text-anchor="middle" class="axis">1</text>
+<text x="149.5" y="408" text-anchor="middle" class="axis">2</text>
+<text x="207.0" y="408" text-anchor="middle" class="axis">4</text>
+<text x="264.5" y="408" text-anchor="middle" class="axis">6</text>
+<text x="322.0" y="408" text-anchor="middle" class="axis">8</text>
+<text x="379.5" y="408" text-anchor="middle" class="axis">12</text>
+<text x="437.0" y="408" text-anchor="middle" class="axis">16</text>
+<text x="494.5" y="408" text-anchor="middle" class="axis">24</text>
+<text x="552.0" y="408" text-anchor="middle" class="axis">32</text>
+<line x1="92" y1="390" x2="552" y2="390" stroke="#cbd5e1"/>
+<polyline points="92.0,171.8 149.5,166.2 207.0,159.2 264.5,155.1 322.0,151.9 379.5,152.4 437.0,153.8 494.5,154.3 552.0,160.3" fill="none" stroke="#16a34a" stroke-width="2.4"/>
+<polyline points="92.0,360.3 149.5,313.6 207.0,255.0 264.5,241.9 322.0,227.0 379.5,229.5 437.0,237.1 494.5,219.9 552.0,223.3" fill="none" stroke="#2563eb" stroke-width="2.4"/>
+<polyline points="92.0,216.9 149.5,191.4 207.0,181.7 264.5,172.5 322.0,162.0 379.5,148.0 437.0,146.5 494.5,151.8 552.0,153.2" fill="none" stroke="#7c3aed" stroke-width="2.4"/>
+<polyline points="92.0,367.2 149.5,349.3 207.0,327.1 264.5,311.3 322.0,307.9 379.5,299.6 437.0,295.0 494.5,311.0 552.0,320.9" fill="none" stroke="#f59e0b" stroke-width="2.4"/>
+<text x="322.0" y="430" text-anchor="middle" class="axis">Exit layer (of 32)</text>
+<rect x="64" y="438" width="16" height="4" rx="2" fill="#16a34a"/>
+<text x="86" y="443" class="legend">AG News Choice</text>
+<rect x="64" y="456" width="16" height="4" rx="2" fill="#2563eb"/>
+<text x="86" y="461" class="legend">20 Newsgroups Choice</text>
+<rect x="64" y="474" width="16" height="4" rx="2" fill="#7c3aed"/>
+<text x="86" y="479" class="legend">SST-2 Noul</text>
+<rect x="64" y="492" width="16" height="4" rx="2" fill="#f59e0b"/>
+<text x="86" y="497" class="legend">SST-5 Score</text>
+<rect x="600" y="72" width="500" height="450" rx="10" fill="#fff" stroke="#e2e8f0"/>
+<text x="620" y="100" class="panel-title">AG News: linear vs MLP vs prefix at L8</text>
+<line x1="652" y1="280.0" x2="1072" y2="280.0" stroke="#f1f5f9"/>
+<text x="644" y="284.0" text-anchor="end" class="axis">86</text>
+<line x1="652" y1="234.3" x2="1072" y2="234.3" stroke="#f1f5f9"/>
+<text x="644" y="238.3" text-anchor="end" class="axis">88</text>
+<line x1="652" y1="188.6" x2="1072" y2="188.6" stroke="#f1f5f9"/>
+<text x="644" y="192.6" text-anchor="end" class="axis">90</text>
+<line x1="652" y1="142.9" x2="1072" y2="142.9" stroke="#f1f5f9"/>
+<text x="644" y="146.9" text-anchor="end" class="axis">92</text>
+<text x="652.0" y="298" text-anchor="middle" class="axis">1</text>
+<text x="704.5" y="298" text-anchor="middle" class="axis">2</text>
+<text x="757.0" y="298" text-anchor="middle" class="axis">4</text>
+<text x="809.5" y="298" text-anchor="middle" class="axis">6</text>
+<text x="862.0" y="298" text-anchor="middle" class="axis">8</text>
+<text x="914.5" y="298" text-anchor="middle" class="axis">12</text>
+<text x="967.0" y="298" text-anchor="middle" class="axis">16</text>
+<text x="1019.5" y="298" text-anchor="middle" class="axis">24</text>
+<text x="1072.0" y="298" text-anchor="middle" class="axis">32</text>
+<line x1="652" y1="280" x2="1072" y2="280" stroke="#cbd5e1"/>
+<polyline points="652.0,264.7 704.5,233.8 757.0,192.0 809.5,167.5 862.0,150.9 914.5,152.7 967.0,156.6 1019.5,155.0 1072.0,197.7" fill="none" stroke="#16a34a" stroke-width="2.4"/>
+<polyline points="652.0,207.3 704.5,219.0 757.0,198.9 809.5,221.0 862.0,185.1 914.5,186.7 967.0,186.3 1019.5,159.5 1072.0,146.7" fill="none" stroke="#7c3aed" stroke-width="2.4"/>
+<text x="862.0" y="320" text-anchor="middle" class="axis">Exit layer (of 32)</text>
+<rect x="624" y="338" width="16" height="4" rx="2" fill="#16a34a"/>
+<text x="646" y="343" class="legend">linear (peak L8 = 91.65%)</text>
+<rect x="624" y="360" width="16" height="4" rx="2" fill="#7c3aed"/>
+<text x="646" y="365" class="legend">MLP-512 (peak L32 = 91.83%)</text>
+<text x="624" y="396" class="panel-title">Learned prefix vs linear mean, AG News</text>
+<text x="624" y="422" class="legend">L4 linear / prefix-8</text>
+<text x="1076" y="422" text-anchor="end" class="legend">89.85% / 90.63%</text>
+<text x="624" y="442" class="legend">L8 linear / prefix-4 / 8 / 16</text>
+<text x="1076" y="442" text-anchor="end" class="legend">91.65% / 90.45% / 90.38% / 90.70%</text>
+<text x="624" y="462" class="legend">L16 linear / prefix-8</text>
+<text x="1076" y="462" text-anchor="end" class="legend">91.40% / 90.00%</text>
+<text x="624" y="482" class="legend">L32 linear / prefix-8</text>
+<text x="1076" y="482" text-anchor="end" class="legend">89.60% / 90.33%</text>
+</svg>

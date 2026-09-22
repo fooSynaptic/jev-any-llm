@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 560"
+     font-family="Helvetica Neue,Arial,sans-serif">
+<defs>
+  <style>
+    .title { font-size: 20px; font-weight: 700; fill: #1a1a2e; }
+    .subtitle { font-size: 12px; fill: #64748b; }
+    .badge-text { font-size: 11px; font-weight: 600; fill: #fff; }
+    .node-title { font-size: 13px; font-weight: 700; fill: #1e293b; }
+    .node-text { font-size: 11.5px; fill: #475569; }
+    .node-text-bold { font-size: 11.5px; font-weight: 600; fill: #1e293b; }
+    .mono { font-size: 11.5px; fill: #334155; }
+    .inv { font-size: 12.5px; font-weight: 600; fill: #1d4ed8; }
+    .legend-text { font-size: 11px; fill: #475569; }
+  </style>
+  <marker id="arrow-blue" viewBox="0 0 10 8" refX="9" refY="4"
+          markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,4 L0,8 Z" fill="#3b82f6"/>
+  </marker>
+  <marker id="arrow-gray" viewBox="0 0 10 8" refX="9" refY="4"
+          markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"/>
+  </marker>
+</defs>
+<rect width="100%" height="100%" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="40" y="36" class="title">Wrap locks</text>
+<text x="40" y="56" class="subtitle">The product is the wrap. Any instruct LLM in; Jev-mode answers out.</text>
+<rect x="40" y="78" width="300" height="216" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="40" y="78" width="300" height="44" rx="10" fill="#2563eb"/>
+<rect x="40" y="106" width="300" height="16" fill="#2563eb"/>
+<text x="58" y="106" class="badge-text">01</text>
+<text x="92" y="106" class="badge-text">Any LLM in</text>
+<text x="60" y="156" class="node-text">Point any instruct model at the contract.</text>
+<rect x="56" y="174" width="268" height="1" fill="#f1f5f9"/>
+<text x="60" y="192" class="node-text">Local weights or an HTTP API.</text>
+<rect x="56" y="210" width="268" height="1" fill="#f1f5f9"/>
+<text x="60" y="228" class="node-text">The caller keeps their model.</text>
+<rect x="400" y="78" width="300" height="216" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="400" y="78" width="300" height="44" rx="10" fill="#0f766e"/>
+<rect x="400" y="106" width="300" height="16" fill="#0f766e"/>
+<text x="418" y="106" class="badge-text">02</text>
+<text x="452" y="106" class="badge-text">Generate + logprob</text>
+<text x="420" y="156" class="node-text">Usually a one-token generate.</text>
+<rect x="416" y="174" width="268" height="1" fill="#f1f5f9"/>
+<text x="420" y="192" class="node-text">Read alias-token logprobs.</text>
+<rect x="416" y="210" width="268" height="1" fill="#f1f5f9"/>
+<text x="420" y="228" class="node-text">Softmax over the closed set.</text>
+<rect x="760" y="78" width="300" height="216" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="760" y="78" width="300" height="44" rx="10" fill="#d97706"/>
+<rect x="760" y="106" width="300" height="16" fill="#d97706"/>
+<text x="778" y="106" class="badge-text">03</text>
+<text x="812" y="106" class="badge-text">library post-process</text>
+<text x="780" y="156" class="node-text">The library builds the Jev JSON.</text>
+<rect x="776" y="174" width="268" height="1" fill="#f1f5f9"/>
+<text x="780" y="192" class="node-text">noul / choice / score fields.</text>
+<rect x="776" y="210" width="268" height="1" fill="#f1f5f9"/>
+<text x="780" y="228" class="node-text">Confidence from logprob entropy.</text>
+<rect x="40" y="318" width="300" height="216" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="40" y="318" width="300" height="44" rx="10" fill="#7c3aed"/>
+<rect x="40" y="346" width="300" height="16" fill="#7c3aed"/>
+<text x="58" y="346" class="badge-text">04</text>
+<text x="92" y="346" class="badge-text">Isolated questions</text>
+<text x="60" y="396" class="node-text">One generate per question.</text>
+<rect x="56" y="414" width="268" height="1" fill="#f1f5f9"/>
+<text x="60" y="432" class="node-text">Prompt is state + that question.</text>
+<rect x="56" y="450" width="268" height="1" fill="#f1f5f9"/>
+<text x="60" y="468" class="node-text">Isolation is a measured probe.</text>
+<rect x="400" y="318" width="300" height="216" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="400" y="318" width="300" height="44" rx="10" fill="#be185d"/>
+<rect x="400" y="346" width="300" height="16" fill="#be185d"/>
+<text x="418" y="346" class="badge-text">05</text>
+<text x="452" y="346" class="badge-text">Typed primitives</text>
+<text x="420" y="396" class="node-text">Choice, Noul, or Score only.</text>
+<rect x="416" y="414" width="268" height="1" fill="#f1f5f9"/>
+<text x="420" y="432" class="node-text">Answer space = caller schema.</text>
+<rect x="416" y="450" width="268" height="1" fill="#f1f5f9"/>
+<text x="420" y="468" class="node-text">Aliases map back to option ids.</text>
+<rect x="760" y="318" width="300" height="216" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="760" y="318" width="300" height="44" rx="10" fill="#334155"/>
+<rect x="760" y="346" width="300" height="16" fill="#334155"/>
+<text x="778" y="346" class="badge-text">06</text>
+<text x="812" y="346" class="badge-text">Code owns the branch</text>
+<text x="780" y="396" class="node-text">Model supplies probabilities.</text>
+<rect x="776" y="414" width="268" height="1" fill="#f1f5f9"/>
+<text x="780" y="432" class="node-text">Application thresholds and routes.</text>
+<rect x="776" y="450" width="268" height="1" fill="#f1f5f9"/>
+<text x="780" y="468" class="node-text">Risk tolerance lives in your code.</text>
+</svg>

@@ -1,0 +1,125 @@
+{
+  "model": "Qwen3.8-27B",
+  "dataset": "AG News",
+  "test": {
+    "n": 4000,
+    "per_class": 1000,
+    "max_length": 256
+  },
+  "alias_tokens": {
+    "A": 32,
+    "B": 33,
+    "C": 34,
+    "D": 35
+  },
+  "scheme_0_ar": {
+    "n": 4000,
+    "accuracy": 0.87,
+    "parse_rate": 0.9995,
+    "mean_generated_tokens": 13.128,
+    "throughput": {
+      "calls": 123,
+      "examples_per_call": 32,
+      "p50_ms": 2918.1953125,
+      "p95_ms": 3861.8430175781236,
+      "mean_ms": 2992.135116949314,
+      "qps": 10.694704199262961
+    }
+  },
+  "scheme_1_generate_logprob": {
+    "n": 4000,
+    "accuracy": 0.8695,
+    "nll": 0.5928092002868652,
+    "brier": 0.21907255138754755,
+    "ece_15": 0.07914951419085262,
+    "mean_max_probability": 0.9466627240180969,
+    "mean_entropy_confidence": 0.8907819986343384,
+    "alias_hit_rate": 0.99775,
+    "throughput": {
+      "calls": 123,
+      "examples_per_call": 32,
+      "p50_ms": 2444.74267578125,
+      "p95_ms": 3186.108251953125,
+      "mean_ms": 2502.573015910823,
+      "qps": 12.786839703197812
+    }
+  },
+  "scheme_3_multibit_codebook_zero_shot": {
+    "n": 4000,
+    "accuracy": 0.23975,
+    "nll": 2.1339306831359863,
+    "brier": 0.9638540025993142,
+    "ece_15": 0.3184366701245308,
+    "mean_max_probability": 0.5581866502761841,
+    "mean_entropy_confidence": 0.25895392894744873,
+    "codebook_size": 16,
+    "throughput": {
+      "calls": 123,
+      "examples_per_call": 32,
+      "p50_ms": 3154.03955078125,
+      "p95_ms": 3154.3248291015625,
+      "mean_ms": 3154.0341459444867,
+      "qps": 10.145736703943479
+    }
+  },
+  "scheme_4_direct_last_logits": {
+    "n": 4000,
+    "accuracy": 0.8695,
+    "nll": 0.59244304895401,
+    "brier": 0.21898920928659985,
+    "ece_15": 0.07981279334425928,
+    "mean_max_probability": 0.946890115737915,
+    "mean_entropy_confidence": 0.8909992575645447,
+    "throughput": {
+      "calls": 123,
+      "examples_per_call": 32,
+      "p50_ms": 2435.88671875,
+      "p95_ms": 3176.39892578125,
+      "mean_ms": 2494.8217058879573,
+      "qps": 12.82656789640627
+    }
+  },
+  "scheme_1_vs_4": {
+    "max_probability_abs_diff": 0.14064157009124756,
+    "mean_probability_abs_diff": 0.0013232727069407701,
+    "argmax_agreement": 0.998
+  },
+  "latency_gpu_compute": {
+    "batch_1": {
+      "scheme_1_generate1": {
+        "calls": 80,
+        "examples_per_call": 1,
+        "p50_ms": 97.31171035766602,
+        "p95_ms": 98.06584777832032,
+        "mean_ms": 97.35367813110352,
+        "qps": 10.271825566295785
+      },
+      "scheme_4_forward": {
+        "calls": 80,
+        "examples_per_call": 1,
+        "p50_ms": 90.05521774291992,
+        "p95_ms": 90.23917350769042,
+        "mean_ms": 90.11158609390259,
+        "qps": 11.097352109171954
+      }
+    },
+    "batch_32": {
+      "scheme_1_generate1": {
+        "calls": 40,
+        "examples_per_call": 32,
+        "p50_ms": 2618.756591796875,
+        "p95_ms": 2619.0547485351562,
+        "mean_ms": 2618.758135986328,
+        "qps": 12.219532441833364
+      },
+      "scheme_4_forward": {
+        "calls": 40,
+        "examples_per_call": 32,
+        "p50_ms": 2609.2315673828125,
+        "p95_ms": 2609.4311767578124,
+        "mean_ms": 2609.2346374511717,
+        "qps": 12.264132761651197
+      }
+    }
+  }
+}

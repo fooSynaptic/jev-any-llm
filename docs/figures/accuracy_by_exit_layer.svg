@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480"
+     font-family="Helvetica Neue,Arial,sans-serif">
+<defs><style>
+.title{font-size:18px;font-weight:700;fill:#1e293b}
+.axis{font-size:11px;fill:#64748b}
+.axis-title{font-size:12px;fill:#475569}
+.legend{font-size:12px;fill:#334155}
+.hl{font-size:12px;font-weight:700;fill:#15803d}
+.base{font-size:11px;fill:#0f172a}
+</style></defs>
+<rect width="100%" height="100%" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="36" y="36" class="title">Accuracy by exit layer</text>
+<line x1="72" y1="348.0" x2="652" y2="348.0" stroke="#e2e8f0"/>
+<text x="62" y="352.0" text-anchor="end" class="axis">70%</text>
+<line x1="72" y1="248.0" x2="652" y2="248.0" stroke="#e2e8f0"/>
+<text x="62" y="252.0" text-anchor="end" class="axis">80%</text>
+<line x1="72" y1="148.0" x2="652" y2="148.0" stroke="#e2e8f0"/>
+<text x="62" y="152.0" text-anchor="end" class="axis">90%</text>
+<text x="72.0" y="410" text-anchor="middle" class="axis">1</text>
+<text x="188.0" y="410" text-anchor="middle" class="axis">2</text>
+<text x="304.0" y="410" text-anchor="middle" class="axis">4</text>
+<text x="371.9" y="410" text-anchor="middle" class="axis">6</text>
+<text x="420.0" y="410" text-anchor="middle" class="axis">8</text>
+<text x="487.9" y="410" text-anchor="middle" class="axis">12</text>
+<text x="536.0" y="410" text-anchor="middle" class="axis">16</text>
+<text x="603.9" y="410" text-anchor="middle" class="axis">24</text>
+<text x="652.0" y="410" text-anchor="middle" class="axis">32</text>
+<line x1="72" y1="388" x2="652" y2="388" stroke="#cbd5e1"/>
+<line x1="72" y1="88" x2="72" y2="388" stroke="#cbd5e1"/>
+<text x="362.0" y="432" text-anchor="middle" class="axis-title">Exit layer (of 32)</text>
+<text x="22" y="238.0" text-anchor="middle" class="axis-title" transform="rotate(-90 22 238.0)">Accuracy</text>
+<line x1="72" y1="177.5" x2="652" y2="177.5" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="648" y="169.5" text-anchor="end" class="base">vanilla AR 87.05%</text>
+<polyline points="72.0,182.2 188.0,167.7 304.0,149.5 371.9,139.0 420.0,130.8 487.9,132.0 536.0,135.5 603.9,137.0 652.0,152.5" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+<circle cx="72.0" cy="182.2" r="3.6" fill="#16a34a"/>
+<circle cx="188.0" cy="167.7" r="3.6" fill="#16a34a"/>
+<circle cx="304.0" cy="149.5" r="3.6" fill="#16a34a"/>
+<circle cx="371.9" cy="139.0" r="3.6" fill="#16a34a"/>
+<circle cx="420.0" cy="130.8" r="3.6" fill="#16a34a"/>
+<circle cx="487.9" cy="132.0" r="3.6" fill="#16a34a"/>
+<circle cx="536.0" cy="135.5" r="3.6" fill="#16a34a"/>
+<circle cx="603.9" cy="137.0" r="3.6" fill="#16a34a"/>
+<circle cx="652.0" cy="152.5" r="3.6" fill="#16a34a"/>
+<polyline points="72.0,182.7 188.0,168.8 304.0,145.5 371.9,139.7 420.0,133.5 487.9,138.3 536.0,149.2 603.9,144.2 652.0,163.5" fill="none" stroke="#0891b2" stroke-width="2.5"/>
+<circle cx="72.0" cy="182.7" r="3.6" fill="#0891b2"/>
+<circle cx="188.0" cy="168.8" r="3.6" fill="#0891b2"/>
+<circle cx="304.0" cy="145.5" r="3.6" fill="#0891b2"/>
+<circle cx="371.9" cy="139.7" r="3.6" fill="#0891b2"/>
+<circle cx="420.0" cy="133.5" r="3.6" fill="#0891b2"/>
+<circle cx="487.9" cy="138.3" r="3.6" fill="#0891b2"/>
+<circle cx="536.0" cy="149.2" r="3.6" fill="#0891b2"/>
+<circle cx="603.9" cy="144.2" r="3.6" fill="#0891b2"/>
+<circle cx="652.0" cy="163.5" r="3.6" fill="#0891b2"/>
+<polyline points="72.0,357.5 188.0,245.5 304.0,187.0 371.9,184.0 420.0,194.2 487.9,209.0 536.0,228.8 603.9,204.7 652.0,207.7" fill="none" stroke="#f97316" stroke-width="2.5"/>
+<circle cx="72.0" cy="357.5" r="3.6" fill="#f97316"/>
+<circle cx="188.0" cy="245.5" r="3.6" fill="#f97316"/>
+<circle cx="304.0" cy="187.0" r="3.6" fill="#f97316"/>
+<circle cx="371.9" cy="184.0" r="3.6" fill="#f97316"/>
+<circle cx="420.0" cy="194.2" r="3.6" fill="#f97316"/>
+<circle cx="487.9" cy="209.0" r="3.6" fill="#f97316"/>
+<circle cx="536.0" cy="228.8" r="3.6" fill="#f97316"/>
+<circle cx="603.9" cy="204.7" r="3.6" fill="#f97316"/>
+<circle cx="652.0" cy="207.7" r="3.6" fill="#f97316"/>
+<circle cx="420.0" cy="130.8" r="7.5" fill="none" stroke="#15803d" stroke-width="2"/>
+<text x="432.0" y="120.8" class="hl">L8 = 91.73%</text>
+<rect x="80" y="452" width="22" height="4" rx="2" fill="#16a34a"/>
+<text x="108" y="457" class="legend">Causal + mean pooling</text>
+<rect x="290" y="452" width="22" height="4" rx="2" fill="#0891b2"/>
+<text x="318" y="457" class="legend">Bidirectional + mean pooling</text>
+<rect x="500" y="452" width="22" height="4" rx="2" fill="#f97316"/>
+<text x="528" y="457" class="legend">Causal + last token</text>
+</svg>

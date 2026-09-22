@@ -1,0 +1,70 @@
+{
+  "dataset": "AG News",
+  "test": {
+    "n": 4000,
+    "per_class": 1000
+  },
+  "note": "no labels used anywhere in this file",
+  "reference_single_token": {
+    "n": 4000,
+    "accuracy": 0.83175,
+    "nll": 0.772132933139801,
+    "brier": 0.28382401953114356,
+    "ece_15": 0.11785998826473955,
+    "mean_max_probability": 0.9490377306938171,
+    "mean_entropy_confidence": 0.8976984620094299
+  },
+  "D_rationale": {
+    "tokens_8": {
+      "n": 4000,
+      "accuracy": 0.821,
+      "nll": 0.6958594918251038,
+      "brier": 0.2974227074965038,
+      "ece_15": 0.11120102851092813,
+      "mean_max_probability": 0.9318420886993408,
+      "mean_entropy_confidence": 0.8547908067703247,
+      "latency_batch_1": {
+        "calls": 10,
+        "examples_per_call": 1,
+        "p50_ms": 312.73583984375,
+        "p95_ms": 314.41944427490233,
+        "mean_ms": 312.94850769042966,
+        "qps": 3.1954138633861304
+      }
+    },
+    "tokens_16": {
+      "n": 4000,
+      "accuracy": 0.77175,
+      "nll": 0.9184947609901428,
+      "brier": 0.38504499584669966,
+      "ece_15": 0.16353630418330434,
+      "mean_max_probability": 0.9342830777168274,
+      "mean_entropy_confidence": 0.8530026078224182,
+      "latency_batch_1": {
+        "calls": 10,
+        "examples_per_call": 1,
+        "p50_ms": 316.0891876220703,
+        "p95_ms": 320.2332397460938,
+        "mean_ms": 316.63734741210936,
+        "qps": 3.1581871442931257
+      }
+    },
+    "tokens_32": {
+      "n": 4000,
+      "accuracy": 0.76475,
+      "nll": 0.9357763528823853,
+      "brier": 0.39568318063322955,
+      "ece_15": 0.16317592532187702,
+      "mean_max_probability": 0.9264847636222839,
+      "mean_entropy_confidence": 0.8384556174278259,
+      "latency_batch_1": {
+        "calls": 10,
+        "examples_per_call": 1,
+        "p50_ms": 316.1461181640625,
+        "p95_ms": 317.1115493774414,
+        "mean_ms": 316.1943664550781,
+        "qps": 3.1626116910658824
+      }
+    }
+  }
+}

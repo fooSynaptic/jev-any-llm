@@ -1,0 +1,199 @@
+{
+  "dataset": "AG News",
+  "test": {
+    "n": 4000,
+    "per_class": 1000
+  },
+  "note": "no labels used anywhere in this file",
+  "reference_single_token": {
+    "n": 4000,
+    "accuracy": 0.869,
+    "nll": 0.758219838142395,
+    "brier": 0.21994940595973864,
+    "ece_15": 0.09268176254630092,
+    "mean_max_probability": 0.9616818428039551,
+    "mean_entropy_confidence": 0.9267560839653015
+  },
+  "A_full_words": {
+    "sum": {
+      "n": 4000,
+      "accuracy": 0.86875,
+      "nll": 0.7725702716771606,
+      "brier": 0.22052198302468026,
+      "ece_15": 0.09287931747650134,
+      "mean_max_probability": 0.9616293174765014,
+      "mean_entropy_confidence": 0.9267135960982998
+    },
+    "normalised": {
+      "n": 4000,
+      "accuracy": 0.88025,
+      "nll": 0.5282508037535795,
+      "brier": 0.1920700606313437,
+      "ece_15": 0.05885986959539857,
+      "mean_max_probability": 0.938233638194617,
+      "mean_entropy_confidence": 0.8753630886367408
+    },
+    "normalised_contextual_calibration": {
+      "n": 4000,
+      "accuracy": 0.846,
+      "nll": 0.6893126929869033,
+      "brier": 0.25147392404734387,
+      "ece_15": 0.1020354657632242,
+      "mean_max_probability": 0.9475391277994614,
+      "mean_entropy_confidence": 0.8938957483731106
+    },
+    "content_free_prior": [
+      0.425982459160188,
+      0.06955608497002137,
+      0.029667735223203193,
+      0.47479372064658737
+    ]
+  },
+  "A_descriptive": {
+    "sum": {
+      "n": 4000,
+      "accuracy": 0.4975,
+      "nll": 3.990065452644093,
+      "brier": 0.8377811682323347,
+      "ece_15": 0.3901138967249558,
+      "mean_max_probability": 0.8876138967249558,
+      "mean_entropy_confidence": 0.8209273398403213
+    },
+    "normalised": {
+      "n": 4000,
+      "accuracy": 0.62725,
+      "nll": 1.3213674523904626,
+      "brier": 0.6086017240437039,
+      "ece_15": 0.29435420798016343,
+      "mean_max_probability": 0.9216042079801634,
+      "mean_entropy_confidence": 0.8372991271138458
+    },
+    "normalised_contextual_calibration": {
+      "n": 4000,
+      "accuracy": 0.847,
+      "nll": 0.5543586190278538,
+      "brier": 0.25942839563906894,
+      "ece_15": 0.06476069976363481,
+      "mean_max_probability": 0.8910765358374806,
+      "mean_entropy_confidence": 0.7837766884117552
+    },
+    "content_free_prior": [
+      0.0023644615522872533,
+      0.5239150580031791,
+      0.3145261550791153,
+      0.1591943253654185
+    ]
+  },
+  "C_ensemble": {
+    "plain": {
+      "n": 4000,
+      "accuracy": 0.88075,
+      "nll": 0.5135470574005239,
+      "brier": 0.19200945167592715,
+      "ece_15": 0.05882161449705696,
+      "mean_max_probability": 0.9380100478910307,
+      "mean_entropy_confidence": 0.8742531507182819
+    },
+    "contextual_calibration": {
+      "n": 4000,
+      "accuracy": 0.846,
+      "nll": 0.6745862873904312,
+      "brier": 0.25094068756436894,
+      "ece_15": 0.10063459405797781,
+      "mean_max_probability": 0.9459172556174935,
+      "mean_entropy_confidence": 0.887791892721669
+    },
+    "content_free_prior": [
+      0.4251576620746578,
+      0.06981996888524104,
+      0.030277414720480966,
+      0.4747449543196201
+    ]
+  },
+  "B_single_token_contextual_calibration": {
+    "n": 4000,
+    "accuracy": 0.86025,
+    "nll": 0.8403366208076477,
+    "brier": 0.23502906085280523,
+    "ece_15": 0.0983280965164304,
+    "mean_max_probability": 0.9580141305923462,
+    "mean_entropy_confidence": 0.920466423034668,
+    "content_free_prior": [
+      0.6493849158287048,
+      0.1108071506023407,
+      0.04537050426006317,
+      0.1944374442100525
+    ]
+  },
+  "D_rationale": {
+    "tokens_8": {
+      "n": 4000,
+      "accuracy": 0.88,
+      "nll": 0.7449362874031067,
+      "brier": 0.21116179264891669,
+      "ece_15": 0.09376250738650557,
+      "mean_max_probability": 0.9737625122070312,
+      "mean_entropy_confidence": 0.9512214064598083,
+      "latency_batch_1": {
+        "calls": 22,
+        "examples_per_call": 1,
+        "p50_ms": 665.9085998535156,
+        "p95_ms": 670.4825286865234,
+        "mean_ms": 666.472206809304,
+        "qps": 1.5004376623407005
+      }
+    },
+    "tokens_16": {
+      "n": 4000,
+      "accuracy": 0.878,
+      "nll": 0.49822548031806946,
+      "brier": 0.2046791630483098,
+      "ece_15": 0.07641690175235274,
+      "mean_max_probability": 0.9544169902801514,
+      "mean_entropy_confidence": 0.886849045753479,
+      "latency_batch_1": {
+        "calls": 22,
+        "examples_per_call": 1,
+        "p50_ms": 995.4524230957031,
+        "p95_ms": 1009.003628540039,
+        "mean_ms": 997.6770269220525,
+        "qps": 1.0023283818462916
+      }
+    },
+    "tokens_32": {
+      "n": 4000,
+      "accuracy": 0.878,
+      "nll": 0.45756328105926514,
+      "brier": 0.20316883320498985,
+      "ece_15": 0.07113665315508844,
+      "mean_max_probability": 0.9482319951057434,
+      "mean_entropy_confidence": 0.8643217086791992,
+      "latency_batch_1": {
+        "calls": 22,
+        "examples_per_call": 1,
+        "p50_ms": 993.417724609375,
+        "p95_ms": 1002.1173065185546,
+        "mean_ms": 993.9098954634233,
+        "qps": 1.0061274211720541
+      }
+    }
+  },
+  "latency": {
+    "A_four_passes_batch_1": {
+      "calls": 22,
+      "examples_per_call": 1,
+      "p50_ms": 377.69761657714844,
+      "p95_ms": 385.7043914794922,
+      "mean_ms": 379.029428655451,
+      "qps": 2.6383175669164984
+    },
+    "C_sixteen_passes_batch_1": {
+      "calls": 22,
+      "examples_per_call": 1,
+      "p50_ms": 1509.45361328125,
+      "p95_ms": 1514.7811401367187,
+      "mean_ms": 1509.8508633700285,
+      "qps": 0.6623170700237059
+    }
+  }
+}

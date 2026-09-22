@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 520"
+     font-family="Helvetica Neue,Arial,sans-serif">
+<defs><style>
+.title{font-size:20px;font-weight:700;fill:#1e293b}
+.subtitle{font-size:12px;fill:#64748b}
+.panel-title{font-size:14px;font-weight:700;fill:#1e293b}
+.axis{font-size:10.5px;fill:#64748b}
+.axis-title{font-size:11.5px;fill:#475569}
+.legend{font-size:11.5px;fill:#334155}
+.point{font-size:10.5px;fill:#334155}
+.hl{font-size:11px;font-weight:700;fill:#15803d}
+</style></defs>
+<rect width="100%" height="100%" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="40" y="36" class="title">Pruning Qwen depth: same weights, no generation</text>
+<text x="40" y="57" class="subtitle">AG News · 4,000 test rows · trained linear head on 8,000 rows · temperature calibrated</text>
+<rect x="40" y="74" width="520" height="412" rx="10" fill="#fff" stroke="#e2e8f0"/>
+<text x="60" y="102" class="panel-title">Accuracy by exit layer</text>
+<line x1="96" y1="363.7" x2="520" y2="363.7" stroke="#f1f5f9"/>
+<text x="86" y="367.7" text-anchor="end" class="axis">70%</text>
+<line x1="96" y1="313.4" x2="520" y2="313.4" stroke="#f1f5f9"/>
+<text x="86" y="317.4" text-anchor="end" class="axis">75%</text>
+<line x1="96" y1="263.0" x2="520" y2="263.0" stroke="#f1f5f9"/>
+<text x="86" y="267.0" text-anchor="end" class="axis">80%</text>
+<line x1="96" y1="212.6" x2="520" y2="212.6" stroke="#f1f5f9"/>
+<text x="86" y="216.6" text-anchor="end" class="axis">85%</text>
+<line x1="96" y1="162.3" x2="520" y2="162.3" stroke="#f1f5f9"/>
+<text x="86" y="166.3" text-anchor="end" class="axis">90%</text>
+<text x="96.0" y="424" text-anchor="middle" class="axis">1</text>
+<text x="180.8" y="424" text-anchor="middle" class="axis">2</text>
+<text x="265.6" y="424" text-anchor="middle" class="axis">4</text>
+<text x="315.2" y="424" text-anchor="middle" class="axis">6</text>
+<text x="350.4" y="424" text-anchor="middle" class="axis">8</text>
+<text x="400.0" y="424" text-anchor="middle" class="axis">12</text>
+<text x="435.2" y="424" text-anchor="middle" class="axis">16</text>
+<text x="484.8" y="424" text-anchor="middle" class="axis">24</text>
+<text x="520.0" y="424" text-anchor="middle" class="axis">32</text>
+<text x="308.0" y="444" text-anchor="middle" class="axis-title">Exit layer (of 32)</text>
+<line x1="96" y1="404" x2="520" y2="404" stroke="#cbd5e1"/>
+<line x1="96" y1="192.0" x2="520" y2="192.0" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="516" y="185.0" text-anchor="end" class="axis">vanilla AR 87.05%</text>
+<polyline points="96.0,196.8 180.8,182.2 265.6,163.8 315.2,153.2 350.4,144.9 400.0,146.2 435.2,149.7 484.8,151.2 520.0,166.8" fill="none" stroke="#16a34a" stroke-width="2.4"/>
+<circle cx="96.0" cy="196.8" r="3.4" fill="#16a34a"/>
+<circle cx="180.8" cy="182.2" r="3.4" fill="#16a34a"/>
+<circle cx="265.6" cy="163.8" r="3.4" fill="#16a34a"/>
+<circle cx="315.2" cy="153.2" r="3.4" fill="#16a34a"/>
+<circle cx="350.4" cy="144.9" r="3.4" fill="#16a34a"/>
+<circle cx="400.0" cy="146.2" r="3.4" fill="#16a34a"/>
+<circle cx="435.2" cy="149.7" r="3.4" fill="#16a34a"/>
+<circle cx="484.8" cy="151.2" r="3.4" fill="#16a34a"/>
+<circle cx="520.0" cy="166.8" r="3.4" fill="#16a34a"/>
+<polyline points="96.0,197.3 180.8,183.2 265.6,159.8 315.2,154.0 350.4,147.7 400.0,152.5 435.2,163.5 484.8,158.5 520.0,177.9" fill="none" stroke="#0891b2" stroke-width="2.4"/>
+<circle cx="96.0" cy="197.3" r="3.4" fill="#0891b2"/>
+<circle cx="180.8" cy="183.2" r="3.4" fill="#0891b2"/>
+<circle cx="265.6" cy="159.8" r="3.4" fill="#0891b2"/>
+<circle cx="315.2" cy="154.0" r="3.4" fill="#0891b2"/>
+<circle cx="350.4" cy="147.7" r="3.4" fill="#0891b2"/>
+<circle cx="400.0" cy="152.5" r="3.4" fill="#0891b2"/>
+<circle cx="435.2" cy="163.5" r="3.4" fill="#0891b2"/>
+<circle cx="484.8" cy="158.5" r="3.4" fill="#0891b2"/>
+<circle cx="520.0" cy="177.9" r="3.4" fill="#0891b2"/>
+<polyline points="96.0,373.3 180.8,260.5 265.6,201.6 315.2,198.5 350.4,208.9 400.0,223.7 435.2,243.6 484.8,219.4 520.0,222.5" fill="none" stroke="#f97316" stroke-width="2.4"/>
+<circle cx="96.0" cy="373.3" r="3.4" fill="#f97316"/>
+<circle cx="180.8" cy="260.5" r="3.4" fill="#f97316"/>
+<circle cx="265.6" cy="201.6" r="3.4" fill="#f97316"/>
+<circle cx="315.2" cy="198.5" r="3.4" fill="#f97316"/>
+<circle cx="350.4" cy="208.9" r="3.4" fill="#f97316"/>
+<circle cx="400.0" cy="223.7" r="3.4" fill="#f97316"/>
+<circle cx="435.2" cy="243.6" r="3.4" fill="#f97316"/>
+<circle cx="484.8" cy="219.4" r="3.4" fill="#f97316"/>
+<circle cx="520.0" cy="222.5" r="3.4" fill="#f97316"/>
+<circle cx="350.4" cy="144.9" r="7" fill="none" stroke="#15803d" stroke-width="2"/>
+<text x="362.4" y="134.9" class="hl">L8 = 91.73%</text>
+<rect x="64" y="434" width="18" height="4" rx="2" fill="#16a34a"/>
+<text x="88" y="439" class="legend">causal, mean pooling</text>
+<rect x="64" y="449" width="18" height="4" rx="2" fill="#0891b2"/>
+<text x="88" y="454" class="legend">bidirectional, mean pooling</text>
+<rect x="64" y="464" width="18" height="4" rx="2" fill="#f97316"/>
+<text x="88" y="469" class="legend">causal, last token</text>
+<rect x="580" y="74" width="520" height="412" rx="10" fill="#fff" stroke="#e2e8f0"/>
+<text x="600" y="102" class="panel-title">Accuracy vs batch-1 latency</text>
+<line x1="636" y1="368.8" x2="1060" y2="368.8" stroke="#f1f5f9"/>
+<text x="626" y="372.8" text-anchor="end" class="axis">80%</text>
+<line x1="636" y1="280.6" x2="1060" y2="280.6" stroke="#f1f5f9"/>
+<text x="626" y="284.6" text-anchor="end" class="axis">85%</text>
+<line x1="636" y1="192.5" x2="1060" y2="192.5" stroke="#f1f5f9"/>
+<text x="626" y="196.5" text-anchor="end" class="axis">90%</text>
+<line x1="636.0" y1="404" x2="636.0" y2="409" stroke="#94a3b8"/>
+<text x="636.0" y="424" text-anchor="middle" class="axis">2</text>
+<line x1="704.1" y1="404" x2="704.1" y2="409" stroke="#94a3b8"/>
+<text x="704.1" y="424" text-anchor="middle" class="axis">5</text>
+<line x1="755.6" y1="404" x2="755.6" y2="409" stroke="#94a3b8"/>
+<text x="755.6" y="424" text-anchor="middle" class="axis">10</text>
+<line x1="875.3" y1="404" x2="875.3" y2="409" stroke="#94a3b8"/>
+<text x="875.3" y="424" text-anchor="middle" class="axis">50</text>
+<line x1="926.8" y1="404" x2="926.8" y2="409" stroke="#94a3b8"/>
+<text x="926.8" y="424" text-anchor="middle" class="axis">100</text>
+<line x1="1046.4" y1="404" x2="1046.4" y2="409" stroke="#94a3b8"/>
+<text x="1046.4" y="424" text-anchor="middle" class="axis">500</text>
+<text x="848.0" y="444" text-anchor="middle" class="axis-title">batch-1 p50 latency (ms, log scale)</text>
+<line x1="636" y1="404" x2="1060" y2="404" stroke="#cbd5e1"/>
+<polyline points="649.2,252.9 686.4,227.3 722.7,195.1 752.2,176.6 769.4,162.1 797.7,164.3 818.0,170.5 847.4,173.1 868.3,200.4" fill="none" stroke="#16a34a" stroke-width="2" stroke-opacity="0.45"/>
+<circle cx="769.4" cy="162.1" r="8" fill="#16a34a"/>
+<text x="781.4" y="166.1" text-anchor="start" class="point">Qwen L8 mean</text>
+<circle cx="722.7" cy="195.1" r="5.5" fill="#16a34a"/>
+<text x="734.7" y="199.1" text-anchor="start" class="point">Qwen L4 mean</text>
+<circle cx="686.4" cy="227.3" r="5.5" fill="#16a34a"/>
+<text x="698.4" y="221.3" text-anchor="start" class="point">Qwen L2 mean</text>
+<circle cx="868.3" cy="200.4" r="5.5" fill="#16a34a"/>
+<text x="880.3" y="188.4" text-anchor="start" class="point">Qwen L32 mean</text>
+<circle cx="866.6" cy="359.4" r="5.5" fill="#2563eb"/>
+<text x="878.6" y="375.4" text-anchor="start" class="point">Zero-shot last logits</text>
+<circle cx="1048.1" cy="244.5" r="5.5" fill="#0f172a"/>
+<text x="1036.1" y="248.5" text-anchor="end" class="point">Vanilla AR</text>
+<text x="604" y="456" class="legend">Green line: the same Qwen weights read at layers 1→32. Up and to the left is better.</text>
+<text x="604" y="472" class="legend">Layer 8 beats vanilla by 4.7 points while running 42.5× faster.</text>
+</svg>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 760"
+     font-family="Helvetica Neue,Arial,sans-serif">
+<defs><style>
+.title{font-size:20px;font-weight:700;fill:#1e293b}
+.subtitle{font-size:12px;fill:#64748b}
+.badge-text{font-size:11px;font-weight:600;fill:#fff}
+.node-title{font-size:13.5px;font-weight:700;fill:#1e293b}
+.node-text{font-size:11.5px;fill:#475569}
+</style>
+<marker id="arrow-gray" viewBox="0 0 10 8" refX="9" refY="4"
+        markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+<path d="M0,0 L10,4 L0,8 Z" fill="#64748b"/>
+</marker></defs>
+<rect width="100%" height="100%" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="40" y="40" class="title">Jev-mode conversion protocol</text>
+<text x="40" y="62" class="subtitle">Frozen Qwen3.5-4B · AG News locks · wrap schemes then compiled early-exit</text>
+<rect x="40" y="88" width="250" height="118" rx="10" fill="#fff" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="40" y="88" width="250" height="26" rx="10" fill="#334155"/>
+<rect x="40" y="102" width="250" height="12" fill="#334155"/>
+<text x="165.0" y="106" text-anchor="middle" class="badge-text">LOCKS</text>
+<text x="54" y="134" class="node-title">What stays fixed</text>
+<text x="54" y="154" class="node-text">Qwen3.5-4B BF16, thinking off</text>
+<text x="54" y="170" class="node-text">4k / 8k / 2k stratified splits</text>
+<text x="54" y="186" class="node-text">CUDA-event GPU time, 15-bin ECE</text>
+<rect x="320" y="88" width="250" height="118" rx="10" fill="#fff" stroke="#93c5fd" stroke-width="1.5"/>
+<rect x="320" y="88" width="250" height="26" rx="10" fill="#2563eb"/>
+<rect x="320" y="102" width="250" height="12" fill="#2563eb"/>
+<text x="445.0" y="106" text-anchor="middle" class="badge-text">DATA</text>
+<text x="334" y="134" class="node-title">Classification packs</text>
+<text x="334" y="154" class="node-text">AG News Choice-4 (main)</text>
+<text x="334" y="170" class="node-text">20 Newsgroups Choice-20</text>
+<text x="334" y="186" class="node-text">SST-2 Noul, SST-5 Score</text>
+<rect x="600" y="88" width="250" height="118" rx="10" fill="#fff" stroke="#c4b5fd" stroke-width="1.5"/>
+<rect x="600" y="88" width="250" height="26" rx="10" fill="#7c3aed"/>
+<rect x="600" y="102" width="250" height="12" fill="#7c3aed"/>
+<text x="725.0" y="106" text-anchor="middle" class="badge-text">BASELINE</text>
+<text x="614" y="134" class="node-title">Vanilla autoregressive</text>
+<text x="614" y="154" class="node-text">Free-text Category + Confidence</text>
+<text x="614" y="170" class="node-text">511.05 ms, 87.05%, 13.24 tok</text>
+<text x="614" y="186" class="node-text">TTFT 49.01 ms</text>
+<rect x="880" y="88" width="220" height="118" rx="10" fill="#fff" stroke="#86efac" stroke-width="1.5"/>
+<rect x="880" y="88" width="220" height="26" rx="10" fill="#16a34a"/>
+<rect x="880" y="102" width="220" height="12" fill="#16a34a"/>
+<text x="990.0" y="106" text-anchor="middle" class="badge-text">READOUT</text>
+<text x="894" y="134" class="node-title">Closed-set math</text>
+<text x="894" y="154" class="node-text">Softmax over option tokens</text>
+<text x="894" y="170" class="node-text">Choice / Noul / Score fields</text>
+<text x="894" y="186" class="node-text">Isolation: one prompt / question</text>
+<line x1="165" y1="206" x2="165" y2="236" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow-gray)"/>
+<line x1="445" y1="206" x2="445" y2="236" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow-gray)"/>
+<line x1="725" y1="206" x2="725" y2="236" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow-gray)"/>
+<line x1="990" y1="206" x2="990" y2="236" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow-gray)"/>
+<rect x="40" y="246" width="520" height="150" rx="10" fill="#fff" stroke="#93c5fd" stroke-width="1.5"/>
+<rect x="40" y="246" width="520" height="26" rx="10" fill="#2563eb"/>
+<rect x="40" y="260" width="520" height="12" fill="#2563eb"/>
+<text x="300.0" y="264" text-anchor="middle" class="badge-text">STAGE A</text>
+<text x="54" y="292" class="node-title">Zero-training wrap (schemes 1-5)</text>
+<text x="54" y="312" class="node-text">1 generate+logprob  80.40% / 49.31 ms</text>
+<text x="54" y="328" class="node-text">2 packed questions  rejected (60.33%, coupled)</text>
+<text x="54" y="344" class="node-text">3 multi-bit codebook  rejected (22.95%)</text>
+<text x="54" y="360" class="node-text">4 last-token logits  80.53% / 44.51 ms</text>
+<text x="54" y="376" class="node-text">5 bidirectional mask  &lt;0.4 pp vs causal</text>
+<rect x="600" y="246" width="500" height="150" rx="10" fill="#fff" stroke="#86efac" stroke-width="1.5"/>
+<rect x="600" y="246" width="500" height="26" rx="10" fill="#16a34a"/>
+<rect x="600" y="260" width="500" height="12" fill="#16a34a"/>
+<text x="850.0" y="264" text-anchor="middle" class="badge-text">STAGE B</text>
+<text x="614" y="292" class="node-title">Compiled early-exit (scheme 6)</text>
+<text x="614" y="312" class="node-text">Freeze backbone, mean-pool prompt</text>
+<text x="614" y="328" class="node-text">Linear Choice head on 8k labels</text>
+<text x="614" y="344" class="node-text">Temperature on 2k held-out rows</text>
+<text x="614" y="360" class="node-text">Sweep layers 1-32; AG News knee = L8</text>
+<text x="614" y="376" class="node-text">91.73% / 12.04 ms / ECE 1.14%</text>
+<line x1="300" y1="396" x2="300" y2="426" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow-gray)"/>
+<line x1="850" y1="396" x2="850" y2="426" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow-gray)"/>
+<rect x="40" y="436" width="520" height="150" rx="10" fill="#fff" stroke="#93c5fd" stroke-width="1.5"/>
+<rect x="40" y="436" width="520" height="26" rx="10" fill="#2563eb"/>
+<rect x="40" y="450" width="520" height="12" fill="#2563eb"/>
+<text x="300.0" y="454" text-anchor="middle" class="badge-text">STAGE C</text>
+<text x="54" y="482" class="node-title">Zero-train gap closing</text>
+<text x="54" y="502" class="node-text">Length-normalised full label words</text>
+<text x="54" y="518" class="node-text">84.17% / ECE 3.55%</text>
+<text x="54" y="534" class="node-text">Shared-prefill KV batch 110.03 ms</text>
+<text x="54" y="550" class="node-text">Skip calibration, ensemble, rationale</text>
+<text x="54" y="566" class="node-text">Verbalizer wording is a lock</text>
+<rect x="600" y="436" width="500" height="150" rx="10" fill="#fff" stroke="#86efac" stroke-width="1.5"/>
+<rect x="600" y="436" width="500" height="26" rx="10" fill="#16a34a"/>
+<rect x="600" y="450" width="500" height="12" fill="#16a34a"/>
+<text x="850.0" y="454" text-anchor="middle" class="badge-text">STAGE D</text>
+<text x="614" y="482" class="node-title">Task / type / head follow-ups</text>
+<text x="614" y="502" class="node-text">20NG peak L24, SST Noul/Score L16</text>
+<text x="614" y="518" class="node-text">Mean pooling beats last token</text>
+<text x="614" y="534" class="node-text">MLP-512 moves the peak to L32</text>
+<text x="614" y="550" class="node-text">Soft prefix loses at the L8 knee</text>
+<text x="614" y="566" class="node-text">Pick exit layer per task on a probe</text>
+<line x1="300" y1="586" x2="560" y2="626" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow-gray)"/>
+<line x1="850" y1="586" x2="580" y2="626" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow-gray)"/>
+<rect x="280" y="626" width="580" height="100" rx="10" fill="#fff" stroke="#334155" stroke-width="1.5"/>
+<rect x="280" y="626" width="580" height="26" rx="10" fill="#334155"/>
+<rect x="280" y="640" width="580" height="12" fill="#334155"/>
+<text x="570" y="644" text-anchor="middle" class="badge-text">SHIP</text>
+<text x="300" y="672" class="node-title">Two production tiers from this protocol</text>
+<text x="300" y="692" class="node-text">Wrap: spelled-out labels, isolated batching, optional KV multi-token score.</text>
+<text x="300" y="708" class="node-text">Compiled: mean-pool, linear head, per-task exit layer on a labelled probe.</text>
+</svg>

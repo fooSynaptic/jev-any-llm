@@ -1,0 +1,105 @@
+{
+  "model": "Qwen3.8-27B",
+  "dataset": "AG News",
+  "test": {
+    "n": 4000,
+    "per_class": 1000,
+    "max_length": 256
+  },
+  "label_words": {
+    "World": 9833,
+    "Sports": 39626,
+    "Business": 22020,
+    "Sci": 87569
+  },
+  "verbalizer_word_logprob": {
+    "n": 4000,
+    "accuracy": 0.867,
+    "nll": 0.660248339176178,
+    "brier": 0.22055720506829107,
+    "ece_15": 0.08858326621353622,
+    "mean_max_probability": 0.9555832743644714,
+    "mean_entropy_confidence": 0.9131849408149719,
+    "greedy_token_in_closed_set_rate": 0.999,
+    "throughput": {
+      "calls": 123,
+      "examples_per_call": 32,
+      "p50_ms": 2254.199462890625,
+      "p95_ms": 3027.083056640625,
+      "mean_ms": 2319.767982048717,
+      "qps": 13.794483003312688
+    }
+  },
+  "verbalizer_letter_logprob": {
+    "n": 4000,
+    "accuracy": 0.8695,
+    "nll": 0.59244304895401,
+    "brier": 0.21898920928659985,
+    "ece_15": 0.07981279334425928,
+    "mean_max_probability": 0.946890115737915,
+    "mean_entropy_confidence": 0.8909992575645447,
+    "greedy_token_in_closed_set_rate": 0.99775,
+    "throughput": {
+      "calls": 123,
+      "examples_per_call": 32,
+      "p50_ms": 2419.790771484375,
+      "p95_ms": 3155.387255859375,
+      "mean_ms": 2476.773072281504,
+      "qps": 12.920037107203722
+    }
+  },
+  "verbalizer_agreement": {
+    "argmax_agreement": 0.978
+  },
+  "vanilla_autoregressive_latency": {
+    "batch_1": {
+      "full_answer_16_tokens": {
+        "calls": 40,
+        "examples_per_call": 1,
+        "p50_ms": 1105.1195678710938,
+        "p95_ms": 1111.6129211425782,
+        "mean_ms": 1095.121844482422,
+        "qps": 0.9131404008040963,
+        "prompt_tokens": 123
+      },
+      "ttft_first_token": {
+        "calls": 40,
+        "examples_per_call": 1,
+        "p50_ms": 96.4960823059082,
+        "p95_ms": 100.60356788635254,
+        "mean_ms": 97.01495666503907,
+        "qps": 10.307688982974792,
+        "prompt_tokens": 123
+      },
+      "word_verbalizer_forward": {
+        "calls": 40,
+        "examples_per_call": 1,
+        "p50_ms": 89.25846481323242,
+        "p95_ms": 93.49710121154784,
+        "mean_ms": 89.63014316558838,
+        "qps": 11.156960869208218,
+        "prompt_tokens": 152
+      }
+    },
+    "batch_32": {
+      "full_answer_16_tokens": {
+        "calls": 20,
+        "examples_per_call": 32,
+        "p50_ms": 2989.351806640625,
+        "p95_ms": 2995.2343139648438,
+        "mean_ms": 2989.93994140625,
+        "qps": 10.702556113869475,
+        "prompt_tokens": 123
+      },
+      "word_verbalizer_forward": {
+        "calls": 20,
+        "examples_per_call": 32,
+        "p50_ms": 2383.1278076171875,
+        "p95_ms": 2383.4293701171873,
+        "mean_ms": 2383.1473754882813,
+        "qps": 13.427621106916874,
+        "prompt_tokens": 152
+      }
+    }
+  }
+}

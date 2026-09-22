@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 470"
+     font-family="Helvetica Neue,Arial,sans-serif">
+<defs><style>
+.title{font-size:20px;font-weight:700;fill:#1e293b}
+.subtitle{font-size:12px;fill:#64748b}
+.col{font-size:13px;font-weight:700;fill:#1e293b}
+.arm{font-size:11.5px;fill:#334155}
+.val{font-size:11px;fill:#475569}
+.axis{font-size:10px;fill:#94a3b8}
+</style></defs>
+<rect width="1140" height="470" fill="#f8fafc"/>
+<text x="40" y="40" class="title">Zero-training arms on AG News</text>
+<text x="40" y="62" class="subtitle">4,000 balanced rows, frozen Qwen3.5-4B. No labels except the top bar, shown for scale.</text>
+<rect x="40" y="76" width="1060" height="358" rx="10" fill="#fff" stroke="#e2e8f0"/>
+<text x="360" y="98" class="col">Accuracy</text>
+<text x="760" y="98" class="col">Calibration error (ECE)</text>
+<line x1="624.4" y1="106" x2="624.4" y2="412" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="629.4" y="114" class="axis">free text 87.05%</text>
+<text x="64" y="136" class="arm">Compiled layer-8 head (needs labels)</text>
+<rect x="360" y="123" width="303.0" height="14" rx="3" fill="#7c3aed"/>
+<text x="671.0" y="135" class="val">91.73%</text>
+<rect x="760" y="123" width="10.1" height="14" rx="3" fill="#7c3aed" opacity="0.55"/>
+<text x="778.1" y="135" class="val">1.14%</text>
+<text x="64" y="170" class="arm">Vanilla free text</text>
+<rect x="360" y="157" width="264.4" height="14" rx="3" fill="#334155"/>
+<text x="632.4" y="169" class="val">87.05%</text>
+<text x="760" y="169" class="axis">no probability</text>
+<text x="64" y="204" class="arm">Verbalizer ensemble, 16 forms</text>
+<rect x="360" y="191" width="241.3" height="14" rx="3" fill="#60a5fa"/>
+<text x="609.3" y="203" class="val">84.25%</text>
+<rect x="760" y="191" width="34.2" height="14" rx="3" fill="#60a5fa" opacity="0.55"/>
+<text x="802.2" y="203" class="val">3.88%</text>
+<text x="64" y="238" class="arm">Full label words, length-normalised</text>
+<rect x="360" y="225" width="240.7" height="14" rx="3" fill="#16a34a"/>
+<text x="608.7" y="237" class="val">84.17%</text>
+<rect x="760" y="225" width="31.3" height="14" rx="3" fill="#16a34a" opacity="0.55"/>
+<text x="799.3" y="237" class="val">3.55%</text>
+<text x="64" y="272" class="arm">Single-token words</text>
+<rect x="360" y="259" width="232.4" height="14" rx="3" fill="#60a5fa"/>
+<text x="600.4" y="271" class="val">83.17%</text>
+<rect x="760" y="259" width="104.0" height="14" rx="3" fill="#60a5fa" opacity="0.55"/>
+<text x="872.0" y="271" class="val">11.79%</text>
+<text x="64" y="306" class="arm">Rationale, 8 tokens</text>
+<rect x="360" y="293" width="223.6" height="14" rx="3" fill="#60a5fa"/>
+<text x="591.6" y="305" class="val">82.10%</text>
+<rect x="760" y="293" width="98.1" height="14" rx="3" fill="#60a5fa" opacity="0.55"/>
+<text x="866.1" y="305" class="val">11.12%</text>
+<text x="64" y="340" class="arm">Contextual calibration</text>
+<rect x="360" y="327" width="188.1" height="14" rx="3" fill="#f59e0b"/>
+<text x="556.1" y="339" class="val">77.80%</text>
+<rect x="760" y="327" width="127.0" height="14" rx="3" fill="#f59e0b" opacity="0.55"/>
+<text x="895.0" y="339" class="val">14.39%</text>
+<text x="64" y="374" class="arm">Rationale, 32 tokens</text>
+<rect x="360" y="361" width="177.2" height="14" rx="3" fill="#f59e0b"/>
+<text x="545.2" y="373" class="val">76.48%</text>
+<rect x="760" y="361" width="144.0" height="14" rx="3" fill="#f59e0b" opacity="0.55"/>
+<text x="912.0" y="373" class="val">16.32%</text>
+<text x="64" y="408" class="arm">Descriptive label words</text>
+<rect x="360" y="395" width="34.2" height="14" rx="3" fill="#f59e0b"/>
+<text x="402.2" y="407" class="val">59.15%</text>
+<rect x="760" y="395" width="286.9" height="14" rx="3" fill="#f59e0b" opacity="0.55"/>
+<text x="1054.9" y="407" class="val">32.52%</text>
+<text x="64" y="436" class="axis">Green is the best zero-training arm. Shorter calibration bars are better.</text>
+</svg>

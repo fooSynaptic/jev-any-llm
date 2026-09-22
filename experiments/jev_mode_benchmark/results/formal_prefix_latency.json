@@ -1,0 +1,88 @@
+{
+  "task": "agnews",
+  "split": {
+    "train_per_class": 2000,
+    "calibration_per_class": 500,
+    "test_per_class": 1000
+  },
+  "configs": [
+    {
+      "temperature": null,
+      "prefix_length": 8,
+      "exit_layer": 8,
+      "latency": {
+        "calls": 24,
+        "examples_per_call": 1,
+        "p50_ms": 11.961952209472656,
+        "p95_ms": 12.09322214126587,
+        "mean_ms": 11.977538665135702,
+        "qps": 83.48960733567127
+      }
+    },
+    {
+      "temperature": null,
+      "prefix_length": 8,
+      "exit_layer": 16,
+      "latency": {
+        "calls": 24,
+        "examples_per_call": 1,
+        "p50_ms": 22.734416007995605,
+        "p95_ms": 22.84662675857544,
+        "mean_ms": 22.724186579386394,
+        "qps": 44.00597559373684
+      }
+    },
+    {
+      "temperature": null,
+      "prefix_length": 4,
+      "exit_layer": 16,
+      "latency": {
+        "calls": 24,
+        "examples_per_call": 1,
+        "p50_ms": 22.608208656311035,
+        "p95_ms": 22.68119897842407,
+        "mean_ms": 22.60589075088501,
+        "qps": 44.23625731097769
+      }
+    },
+    {
+      "temperature": null,
+      "prefix_length": 16,
+      "exit_layer": 16,
+      "latency": {
+        "calls": 24,
+        "examples_per_call": 1,
+        "p50_ms": 22.812528610229492,
+        "p95_ms": 22.957476806640624,
+        "mean_ms": 22.815908034642536,
+        "qps": 43.8290686691781
+      }
+    },
+    {
+      "temperature": null,
+      "prefix_length": 8,
+      "exit_layer": 32,
+      "latency": {
+        "calls": 24,
+        "examples_per_call": 1,
+        "p50_ms": 44.5664176940918,
+        "p95_ms": 44.85389156341553,
+        "mean_ms": 44.59290679295858,
+        "qps": 22.425091161760832
+      }
+    },
+    {
+      "temperature": null,
+      "prefix_length": 8,
+      "exit_layer": 64,
+      "latency": {
+        "calls": 24,
+        "examples_per_call": 1,
+        "p50_ms": 87.77772521972656,
+        "p95_ms": 88.04830818176269,
+        "mean_ms": 87.77302010854085,
+        "qps": 11.39302257987012
+      }
+    }
+  ]
+}

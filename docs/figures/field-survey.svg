@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520"
+     font-family="Helvetica Neue,Arial,sans-serif">
+<defs>
+  <style>
+    .title { font-size: 20px; font-weight: 700; fill: #1a1a2e; }
+    .subtitle { font-size: 12px; fill: #64748b; }
+    .badge-text { font-size: 11px; font-weight: 600; fill: #fff; }
+    .node-title { font-size: 13px; font-weight: 700; fill: #1e293b; }
+    .node-text { font-size: 11.5px; fill: #475569; }
+    .node-text-bold { font-size: 11.5px; font-weight: 600; fill: #1e293b; }
+    .mono { font-size: 11.5px; fill: #334155; }
+    .inv { font-size: 12.5px; font-weight: 600; fill: #1d4ed8; }
+    .legend-text { font-size: 11px; fill: #475569; }
+  </style>
+  <marker id="arrow-blue" viewBox="0 0 10 8" refX="9" refY="4"
+          markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,4 L0,8 Z" fill="#3b82f6"/>
+  </marker>
+  <marker id="arrow-gray" viewBox="0 0 10 8" refX="9" refY="4"
+          markerWidth="8" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,4 L0,8 Z" fill="#64748b"/>
+  </marker>
+</defs>
+<rect width="100%" height="100%" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="40" y="34" class="title">Field split: generate, judge, execute</text>
+<text x="40" y="54" class="subtitle">15 public Jev builds  &#xB7;  closed options + confidence  &#xB7;  code owns the branch</text>
+<rect x="40" y="70" width="1020" height="108" rx="10" fill="#fff" stroke="#93c5fd" stroke-width="1.5"/>
+<rect x="56" y="86" width="312" height="76" rx="8" fill="#fff" stroke="#93c5fd"/>
+<rect x="56" y="86" width="312" height="26" rx="8" fill="#dbeafe"/>
+<rect x="56" y="104" width="312" height="8" fill="#dbeafe"/>
+<text x="212.0" y="105" text-anchor="middle" class="node-title" fill="#1d4ed8">LLM generates</text>
+<text x="68" y="134" class="node-text">Plan, write, fill parameters</text>
+<rect x="394" y="86" width="312" height="76" rx="8" fill="#fff" stroke="#fcd34d"/>
+<rect x="394" y="86" width="312" height="26" rx="8" fill="#fef3c7"/>
+<rect x="394" y="104" width="312" height="8" fill="#fef3c7"/>
+<text x="550.0" y="105" text-anchor="middle" class="node-title" fill="#b45309">Jev-mode judges</text>
+<text x="406" y="134" class="node-text">Noul / Choice / Score + confidence</text>
+<rect x="732" y="86" width="312" height="76" rx="8" fill="#fff" stroke="#86efac"/>
+<rect x="732" y="86" width="312" height="26" rx="8" fill="#dcfce7"/>
+<rect x="732" y="104" width="312" height="8" fill="#dcfce7"/>
+<text x="888.0" y="105" text-anchor="middle" class="node-title" fill="#15803d">Code executes</text>
+<text x="744" y="134" class="node-text">Click, skip, keep, escalate, SQL</text>
+<line x1="368" y1="124" x2="390" y2="124" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<line x1="706" y1="124" x2="728" y2="124" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+<rect x="40" y="198" width="196" height="168" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="40" y="198" width="196" height="40" rx="10" fill="#2563eb"/>
+<rect x="40" y="222" width="196" height="16" fill="#2563eb"/>
+<text x="138" y="224" text-anchor="middle" class="badge-text">Browser</text>
+<text x="52" y="276" class="node-text-bold">Choice over next action</text>
+<rect x="52" y="294" width="172" height="1" fill="#f1f5f9"/>
+<text x="52" y="320" class="node-text">DOM / a11y tree as state</text>
+<rect x="256" y="198" width="196" height="168" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="256" y="198" width="196" height="40" rx="10" fill="#0f766e"/>
+<rect x="256" y="222" width="196" height="16" fill="#0f766e"/>
+<text x="354" y="224" text-anchor="middle" class="badge-text">Harness</text>
+<text x="268" y="276" class="node-text-bold">Noul on skill / tool / keep</text>
+<rect x="268" y="294" width="172" height="1" fill="#f1f5f9"/>
+<text x="268" y="320" class="node-text">Semantic if in the loop</text>
+<rect x="472" y="198" width="196" height="168" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="472" y="198" width="196" height="40" rx="10" fill="#d97706"/>
+<rect x="472" y="222" width="196" height="16" fill="#d97706"/>
+<text x="570" y="224" text-anchor="middle" class="badge-text">Batch</text>
+<text x="484" y="276" class="node-text-bold">Classify then escalate</text>
+<rect x="484" y="294" width="172" height="1" fill="#f1f5f9"/>
+<text x="484" y="320" class="node-text">Confidence is the router</text>
+<rect x="688" y="198" width="196" height="168" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="688" y="198" width="196" height="40" rx="10" fill="#7c3aed"/>
+<rect x="688" y="222" width="196" height="16" fill="#7c3aed"/>
+<text x="786" y="224" text-anchor="middle" class="badge-text">Content</text>
+<text x="700" y="276" class="node-text-bold">Score many axes at once</text>
+<rect x="700" y="294" width="172" height="1" fill="#f1f5f9"/>
+<text x="700" y="320" class="node-text">Full set, independent Qs</text>
+<rect x="904" y="198" width="196" height="168" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+<rect x="904" y="198" width="196" height="40" rx="10" fill="#be185d"/>
+<rect x="904" y="222" width="196" height="16" fill="#be185d"/>
+<text x="1002" y="224" text-anchor="middle" class="badge-text">SQL</text>
+<text x="916" y="276" class="node-text-bold">Predicate as a function</text>
+<rect x="916" y="294" width="172" height="1" fill="#f1f5f9"/>
+<text x="916" y="320" class="node-text">Exact filters stay in code</text>
+<rect x="40" y="388" width="1020" height="100" rx="10" fill="#ecfdf5" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="56" y="404" width="132" height="24" rx="12" fill="#15803d"/>
+<text x="122.0" y="420" text-anchor="middle" class="badge-text">KEV FIT</text>
+<text x="204" y="421" class="node-text">Wrap: any instruct LLM speaks this split. Latency: many independent questions want one forward pass.</text>
+<text x="56" y="456" class="node-text">Isolation lock matches 61 scores on one draft. Confidence lock matches cascade: judge first, upgrade the low-confidence tail.</text>
+</svg>

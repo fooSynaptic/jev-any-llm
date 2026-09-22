@@ -1,0 +1,22 @@
+{
+  "task": "agnews",
+  "split": {
+    "train_per_class": 500,
+    "calibration_per_class": 200,
+    "test_per_class": 1000
+  },
+  "configs": [
+    {
+      "n": 4000,
+      "accuracy": 0.89475,
+      "nll": 0.3283729553222656,
+      "brier": 0.16333463603081125,
+      "ece_15": 0.020519898451864745,
+      "mean_max_probability": 0.8880087733268738,
+      "mean_entropy_confidence": 0.7715046405792236,
+      "temperature": 1.2882495516931343,
+      "prefix_length": 8,
+      "exit_layer": 64
+    }
+  ]
+}

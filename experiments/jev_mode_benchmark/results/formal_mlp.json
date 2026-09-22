@@ -1,0 +1,277 @@
+{
+  "task": "agnews",
+  "kind": "choice",
+  "split": {
+    "train_per_class": 29960,
+    "calibration_per_class": 40,
+    "test_per_class": 1900,
+    "train_n": 119840,
+    "calibration_n": 160,
+    "test_n": 7600
+  },
+  "n_classes": 4,
+  "heads": {
+    "linear": {
+      "by_layer": {
+        "layer_1": {
+          "n": 7600,
+          "accuracy": 0.8921052631578947,
+          "nll": 0.33788069044016683,
+          "brier": 0.16366349416706163,
+          "ece_15": 0.027222549526887078,
+          "mean_max_probability": 0.9132766125748812,
+          "mean_entropy_confidence": 0.8285546400224013,
+          "temperature": 0.6456542290346556,
+          "head": "linear"
+        },
+        "layer_2": {
+          "n": 7600,
+          "accuracy": 0.9021052631578947,
+          "nll": 0.2978110090775771,
+          "brier": 0.15174133482628058,
+          "ece_15": 0.01981742080625335,
+          "mean_max_probability": 0.9098756606955829,
+          "mean_entropy_confidence": 0.8205260297060158,
+          "temperature": 0.8317637711026713,
+          "head": "linear"
+        },
+        "layer_4": {
+          "n": 7600,
+          "accuracy": 0.9148684210526316,
+          "nll": 0.2672779051425547,
+          "brier": 0.1338739873842817,
+          "ece_15": 0.023228780221285484,
+          "mean_max_probability": 0.936326892377471,
+          "mean_entropy_confidence": 0.8742343165845159,
+          "temperature": 0.7244359600749903,
+          "head": "linear"
+        },
+        "layer_8": {
+          "n": 7600,
+          "accuracy": 0.9244736842105263,
+          "nll": 0.26292301346400737,
+          "brier": 0.12123151185227883,
+          "ece_15": 0.03459473443889911,
+          "mean_max_probability": 0.9590193008449714,
+          "mean_entropy_confidence": 0.9212006481228342,
+          "temperature": 0.6839116472814296,
+          "head": "linear"
+        },
+        "layer_16": {
+          "n": 7600,
+          "accuracy": 0.9255263157894736,
+          "nll": 0.2177440210933156,
+          "brier": 0.11211421070769377,
+          "ece_15": 0.019841336618736043,
+          "mean_max_probability": 0.9450583069022942,
+          "mean_entropy_confidence": 0.8911335089599918,
+          "temperature": 0.8709635899560811,
+          "head": "linear"
+        },
+        "layer_24": {
+          "n": 7600,
+          "accuracy": 0.9367105263157894,
+          "nll": 0.19870852702993283,
+          "brier": 0.10008405921947686,
+          "ece_15": 0.010157049778215185,
+          "mean_max_probability": 0.9438024959997533,
+          "mean_entropy_confidence": 0.8868745781006007,
+          "temperature": 1.0839269140212042,
+          "head": "linear"
+        },
+        "layer_32": {
+          "n": 7600,
+          "accuracy": 0.9375,
+          "nll": 0.2167325475704387,
+          "brier": 0.10051116802162732,
+          "ece_15": 0.025586244537179642,
+          "mean_max_probability": 0.9619767257604803,
+          "mean_entropy_confidence": 0.9267187199737134,
+          "temperature": 0.6918309709189367,
+          "head": "linear"
+        },
+        "layer_40": {
+          "n": 7600,
+          "accuracy": 0.9305263157894736,
+          "nll": 0.2074420362938107,
+          "brier": 0.10282495194230293,
+          "ece_15": 0.022181578341549834,
+          "mean_max_probability": 0.9523606361723436,
+          "mean_entropy_confidence": 0.9074797282216557,
+          "temperature": 0.9015711376059573,
+          "head": "linear"
+        },
+        "layer_48": {
+          "n": 7600,
+          "accuracy": 0.9344736842105263,
+          "nll": 0.2141526640800915,
+          "brier": 0.10426474813663669,
+          "ece_15": 0.024766366593169623,
+          "mean_max_probability": 0.9565693636883893,
+          "mean_entropy_confidence": 0.9161640172414252,
+          "temperature": 0.8035261221856176,
+          "head": "linear"
+        },
+        "layer_56": {
+          "n": 7600,
+          "accuracy": 0.9292105263157895,
+          "nll": 0.20696515733112017,
+          "brier": 0.10690136261587323,
+          "ece_15": 0.011140093199249333,
+          "mean_max_probability": 0.9380753325616096,
+          "mean_entropy_confidence": 0.8793539498638723,
+          "temperature": 1.161448613840343,
+          "head": "linear"
+        },
+        "layer_64": {
+          "n": 7600,
+          "accuracy": 0.929078947368421,
+          "nll": 0.1991421587008056,
+          "brier": 0.10431089421150865,
+          "ece_15": 0.007257234881311808,
+          "mean_max_probability": 0.9279066427827926,
+          "mean_entropy_confidence": 0.8545924094937092,
+          "temperature": 1.3182567385564072,
+          "head": "linear"
+        }
+      },
+      "knee": {
+        "peak_layer": 32,
+        "peak_accuracy": 0.9375,
+        "first_layer_within_1pp": 24,
+        "first_within_1pp_accuracy": 0.9367105263157894
+      }
+    },
+    "mlp": {
+      "by_layer": {
+        "layer_1": {
+          "n": 7600,
+          "accuracy": 0.9236842105263158,
+          "nll": 0.21801722049713135,
+          "brier": 0.1133458826264006,
+          "ece_15": 0.00752915962354131,
+          "mean_max_probability": 0.9249681234359741,
+          "mean_entropy_confidence": 0.8557549118995667,
+          "temperature": 1.4791083881682083,
+          "head": "mlp_512"
+        },
+        "layer_2": {
+          "n": 7600,
+          "accuracy": 0.9265789473684211,
+          "nll": 0.22480489313602448,
+          "brier": 0.11460741289088167,
+          "ece_15": 0.009923842510110461,
+          "mean_max_probability": 0.9326978921890259,
+          "mean_entropy_confidence": 0.8718613386154175,
+          "temperature": 1.8197008586099845,
+          "head": "mlp_512"
+        },
+        "layer_4": {
+          "n": 7600,
+          "accuracy": 0.9334210526315789,
+          "nll": 0.21169337630271912,
+          "brier": 0.10444489854100689,
+          "ece_15": 0.015519594079569776,
+          "mean_max_probability": 0.9462393522262573,
+          "mean_entropy_confidence": 0.8949546217918396,
+          "temperature": 2.722701308077913,
+          "head": "mlp_512"
+        },
+        "layer_8": {
+          "n": 7600,
+          "accuracy": 0.9421052631578948,
+          "nll": 0.18619102239608765,
+          "brier": 0.09101637975597279,
+          "ece_15": 0.014904128579716978,
+          "mean_max_probability": 0.9548412561416626,
+          "mean_entropy_confidence": 0.912320613861084,
+          "temperature": 2.985382618917961,
+          "head": "mlp_512"
+        },
+        "layer_16": {
+          "n": 7600,
+          "accuracy": 0.9382894736842106,
+          "nll": 0.18560408055782318,
+          "brier": 0.09433041616944522,
+          "ece_15": 0.009292204521204325,
+          "mean_max_probability": 0.9453499913215637,
+          "mean_entropy_confidence": 0.8916493058204651,
+          "temperature": 3.427677865464506,
+          "head": "mlp_512"
+        },
+        "layer_24": {
+          "n": 7600,
+          "accuracy": 0.9464473684210526,
+          "nll": 0.1719597429037094,
+          "brier": 0.08454371886421208,
+          "ece_15": 0.010519426151325813,
+          "mean_max_probability": 0.9537762403488159,
+          "mean_entropy_confidence": 0.907507598400116,
+          "temperature": 3.1988951096914,
+          "head": "mlp_512"
+        },
+        "layer_32": {
+          "n": 7600,
+          "accuracy": 0.9427631578947369,
+          "nll": 0.18635372817516327,
+          "brier": 0.08998958289400863,
+          "ece_15": 0.019352412247344096,
+          "mean_max_probability": 0.9588049054145813,
+          "mean_entropy_confidence": 0.9190435409545898,
+          "temperature": 2.851018267503911,
+          "head": "mlp_512"
+        },
+        "layer_40": {
+          "n": 7600,
+          "accuracy": 0.9422368421052632,
+          "nll": 0.18112407624721527,
+          "brier": 0.09119456136450496,
+          "ece_15": 0.008960970012765176,
+          "mean_max_probability": 0.9355443120002747,
+          "mean_entropy_confidence": 0.8712757229804993,
+          "temperature": 3.4673685045253184,
+          "head": "mlp_512"
+        },
+        "layer_48": {
+          "n": 7600,
+          "accuracy": 0.9432894736842106,
+          "nll": 0.17257289588451385,
+          "brier": 0.08807678032885091,
+          "ece_15": 0.0047559292300751056,
+          "mean_max_probability": 0.9400661587715149,
+          "mean_entropy_confidence": 0.8763620257377625,
+          "temperature": 3.589219346450054,
+          "head": "mlp_512"
+        },
+        "layer_56": {
+          "n": 7600,
+          "accuracy": 0.9421052631578948,
+          "nll": 0.17603714764118195,
+          "brier": 0.09070301421274231,
+          "ece_15": 0.010243421526331639,
+          "mean_max_probability": 0.9357211589813232,
+          "mean_entropy_confidence": 0.8747404217720032,
+          "temperature": 3.630780547701015,
+          "head": "mlp_512"
+        },
+        "layer_64": {
+          "n": 7600,
+          "accuracy": 0.9425,
+          "nll": 0.17217884957790375,
+          "brier": 0.0887420957061264,
+          "ece_15": 0.0072195427355013385,
+          "mean_max_probability": 0.9449506998062134,
+          "mean_entropy_confidence": 0.8947059512138367,
+          "temperature": 3.1988951096914,
+          "head": "mlp_512"
+        }
+      },
+      "knee": {
+        "peak_layer": 24,
+        "peak_accuracy": 0.9464473684210526,
+        "first_layer_within_1pp": 8,
+        "first_within_1pp_accuracy": 0.9421052631578948
+      }
+    }
+  }
+}

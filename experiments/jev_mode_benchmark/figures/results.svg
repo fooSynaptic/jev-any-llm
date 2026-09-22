@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 460"
+     font-family="Helvetica Neue,Arial,sans-serif">
+<defs><style>
+.title{font-size:20px;font-weight:700;fill:#1e293b}
+.subtitle{font-size:12px;fill:#64748b}
+.panel-title{font-size:14px;font-weight:700;fill:#1e293b}
+.label{font-size:11.5px;fill:#475569}
+.value{font-size:11.5px;font-weight:700;fill:#1e293b}
+.axis{font-size:10.5px;fill:#64748b}
+.note{font-size:10.5px;fill:#64748b}
+</style></defs>
+<rect width="100%" height="100%" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="40" y="38" class="title">AG News: measured quality and latency</text>
+<text x="40" y="60" class="subtitle">Qwen3.5-4B · 4,000 test rows · GPU compute time after warmup</text>
+<rect x="40" y="82" width="500" height="324" rx="10" fill="#fff" stroke="#e2e8f0"/>
+<text x="60" y="114" class="panel-title">Accuracy (%, higher is better)</text>
+<text x="60" y="166" class="label">Vanilla AR text answer</text>
+<rect x="230" y="152" width="272" height="20" rx="5" fill="#f1f5f9"/>
+<rect x="230" y="152" width="236.78" height="20" rx="5" fill="#0f172a"/>
+<text x="512" y="166" class="value">87.05%</text>
+<text x="60" y="212" class="label">Zero-shot letter logits</text>
+<rect x="230" y="198" width="272" height="20" rx="5" fill="#f1f5f9"/>
+<rect x="230" y="198" width="219.04" height="20" rx="5" fill="#2563eb"/>
+<text x="512" y="212" class="value">80.53%</text>
+<text x="60" y="258" class="label">Zero-shot word logits</text>
+<rect x="230" y="244" width="272" height="20" rx="5" fill="#f1f5f9"/>
+<rect x="230" y="244" width="226.17" height="20" rx="5" fill="#0891b2"/>
+<text x="512" y="258" class="value">83.15%</text>
+<text x="60" y="304" class="label">Qwen L8 mean pooling</text>
+<rect x="230" y="290" width="272" height="20" rx="5" fill="#f1f5f9"/>
+<rect x="230" y="290" width="249.51" height="20" rx="5" fill="#16a34a"/>
+<text x="512" y="304" class="value">91.73%</text>
+<line x1="230" y1="350" x2="502" y2="350" stroke="#cbd5e1"/>
+<line x1="230.00" y1="346" x2="230.00" y2="354" stroke="#94a3b8"/>
+<text x="230.00" y="370" text-anchor="middle" class="axis">0</text>
+<line x1="284.40" y1="346" x2="284.40" y2="354" stroke="#94a3b8"/>
+<text x="284.40" y="370" text-anchor="middle" class="axis">20</text>
+<line x1="338.80" y1="346" x2="338.80" y2="354" stroke="#94a3b8"/>
+<text x="338.80" y="370" text-anchor="middle" class="axis">40</text>
+<line x1="393.20" y1="346" x2="393.20" y2="354" stroke="#94a3b8"/>
+<text x="393.20" y="370" text-anchor="middle" class="axis">60</text>
+<line x1="447.60" y1="346" x2="447.60" y2="354" stroke="#94a3b8"/>
+<text x="447.60" y="370" text-anchor="middle" class="axis">80</text>
+<line x1="502.00" y1="346" x2="502.00" y2="354" stroke="#94a3b8"/>
+<text x="502.00" y="370" text-anchor="middle" class="axis">100</text>
+<rect x="560" y="82" width="500" height="324" rx="10" fill="#fff" stroke="#e2e8f0"/>
+<text x="580" y="114" class="panel-title">Batch-1 p50 latency (ms, log scale, lower is better)</text>
+<text x="580" y="166" class="label">Vanilla AR, 13 tokens</text>
+<rect x="750" y="152" width="272" height="20" rx="5" fill="#f1f5f9"/>
+<rect x="750" y="152" width="245.57" height="20" rx="5" fill="#0f172a"/>
+<text x="1032" y="166" class="value">511.05 ms</text>
+<text x="580" y="212" class="label">Zero-shot last logits</text>
+<rect x="750" y="198" width="272" height="20" rx="5" fill="#f1f5f9"/>
+<rect x="750" y="198" width="149.46" height="20" rx="5" fill="#2563eb"/>
+<text x="1032" y="212" class="value">44.51 ms</text>
+<text x="580" y="258" class="label">Qwen L8 mean pooling</text>
+<rect x="750" y="244" width="272" height="20" rx="5" fill="#f1f5f9"/>
+<rect x="750" y="244" width="97.98" height="20" rx="5" fill="#16a34a"/>
+<text x="1032" y="258" class="value">12.04 ms</text>
+<line x1="750" y1="350" x2="1022" y2="350" stroke="#cbd5e1"/>
+<line x1="750.00" y1="346" x2="750.00" y2="354" stroke="#94a3b8"/>
+<text x="750.00" y="370" text-anchor="middle" class="axis">1</text>
+<line x1="840.67" y1="346" x2="840.67" y2="354" stroke="#94a3b8"/>
+<text x="840.67" y="370" text-anchor="middle" class="axis">10</text>
+<line x1="931.33" y1="346" x2="931.33" y2="354" stroke="#94a3b8"/>
+<text x="931.33" y="370" text-anchor="middle" class="axis">100</text>
+<line x1="1022.00" y1="346" x2="1022.00" y2="354" stroke="#94a3b8"/>
+<text x="1022.00" y="370" text-anchor="middle" class="axis">1000</text>
+<text x="60" y="388" class="note">Words = spelled-out class names; letters = A–D aliases.</text>
+<text x="580" y="388" class="note">L8 is the compiled predictor: frozen Qwen, mean pooling, trained 4-way head.</text>
+</svg>
