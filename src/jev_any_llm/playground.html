@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>jev-any-llm playground</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --ink: #1a1a1a;
+      --muted: #5c5c5c;
+      --accent: #0b5fff;
+      --card: #fff;
+      --border: #d9d4c8;
+      --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+      --sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #e8f0ff 0%, transparent 55%),
+        linear-gradient(180deg, #faf8f3 0%, var(--bg) 100%);
+      min-height: 100vh;
+    }
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+    }
+    h1 {
+      font-size: 1.65rem;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.35rem;
+    }
+    .lede { color: var(--muted); margin: 0 0 1.5rem; max-width: 42rem; }
+    label { display: block; font-size: 0.85rem; color: var(--muted); margin: 0.85rem 0 0.35rem; }
+    textarea, select, input[type="text"] {
+      width: 100%;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--card);
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    .row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: end; }
+    .row > * { flex: 1 1 180px; }
+    button {
+      margin-top: 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: 0;
+      border-radius: 6px;
+      padding: 0.65rem 1.1rem;
+      font: 600 0.95rem var(--sans);
+      cursor: pointer;
+    }
+    button:disabled { opacity: 0.55; cursor: wait; }
+    #out {
+      margin-top: 1.25rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+    .meta { color: var(--muted); font-size: 0.8rem; margin-top: 0.5rem; }
+    .bars { margin-top: 1rem; }
+    .bar-row { display: grid; grid-template-columns: 5rem 1fr 4rem; gap: 0.5rem; align-items: center; margin: 0.35rem 0; font-size: 0.85rem; }
+    .bar-track { background: #ece8df; height: 0.55rem; border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--accent); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>jev-any-llm</h1>
+    <p class="lede">Debug surface for <code>POST /v1/systemone</code>: edit state + questions, inspect probabilities and usage.</p>
+
+    <div class="row">
+      <div>
+        <label for="endpoint">Endpoint</label>
+        <input id="endpoint" type="text" value="/v1/systemone" />
+      </div>
+      <div>
+        <label for="model">model</label>
+        <input id="model" type="text" value="mock" />
+      </div>
+    </div>
+
+    <label for="state">state (JSON or plain text)</label>
+    <textarea id="state">{
+  "message": "Charged twice for order A-104. I want a refund today.",
+  "order": {"id": "A-104", "charges": [49, 49]}
+}</textarea>
+
+    <label for="questions">questions (JSON)</label>
+    <textarea id="questions">{
+  "refund": {
+    "type": "noul",
+    "instructions": "Does `message` ask for money back?"
+  },
+  "team": {
+    "type": "choice",
+    "instructions": "Which team should handle `message`?",
+    "criteria": {
+      "billing": "Charges, invoices, refunds",
+      "technical": "Bugs, outages, integrations",
+      "other": "None of the above"
+    }
+  },
+  "urgency": {
+    "type": "score",
+    "instructions": "How time-sensitive is `message`?",
+    "criteria": [
+      "No deadline or consequence",
+      "Wants a reply this week",
+      "Asks for action today or cites ongoing loss"
+    ]
+  }
+}</textarea>
+
+    <button id="run" type="button">Run decide</button>
+    <p class="meta" id="timing"></p>
+    <div class="bars" id="bars"></div>
+    <pre id="out">// response JSON appears here</pre>
+  </main>
+  <script>
+    function parseMaybeJson(raw) {
+      const t = raw.trim();
+      try { return JSON.parse(t); } catch (_) { return t; }
+    }
+    function renderBars(answers) {
+      const root = document.getElementById("bars");
+      root.innerHTML = "";
+      if (!answers) return;
+      for (const [qid, ans] of Object.entries(answers)) {
+        const probs = ans.probabilities || {};
+        const title = document.createElement("div");
+        title.style.fontWeight = "600";
+        title.style.marginTop = "0.75rem";
+        title.textContent = qid + (ans.choice != null ? ` → ${ans.choice}` : ans.noul != null ? ` → noul=${ans.noul.toFixed(3)}` : ans.score != null ? ` → score=${ans.score.toFixed(3)}` : "");
+        root.appendChild(title);
+        for (const [k, v] of Object.entries(probs)) {
+          const row = document.createElement("div");
+          row.className = "bar-row";
+          row.innerHTML = `<span>${k}</span><div class="bar-track"><div class="bar-fill" style="width:${(100 * v).toFixed(1)}%"></div></div><span>${v.toFixed(3)}</span>`;
+          root.appendChild(row);
+        }
+      }
+    }
+    document.getElementById("run").onclick = async () => {
+      const btn = document.getElementById("run");
+      btn.disabled = true;
+      const t0 = performance.now();
+      try {
+        const body = {
+          model: document.getElementById("model").value.trim() || "mock",
+          state: parseMaybeJson(document.getElementById("state").value),
+          questions: parseMaybeJson(document.getElementById("questions").value),
+        };
+        const res = await fetch(document.getElementById("endpoint").value, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        const text = await res.text();
+        let data;
+        try { data = JSON.parse(text); } catch (_) { data = text; }
+        document.getElementById("out").textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+        renderBars(data && data.answers);
+        document.getElementById("timing").textContent =
+          `HTTP ${res.status} · ${(performance.now() - t0).toFixed(0)} ms` +
+          (data && data.usage ? ` · backend=${data.usage.backend} · in=${data.usage.input_tokens} out=${data.usage.output_tokens}` : "");
+      } catch (err) {
+        document.getElementById("out").textContent = String(err);
+        document.getElementById("timing").textContent = "request failed";
+      } finally {
+        btn.disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>

@@ -8,6 +8,7 @@ from typing import Any
 from jev_any_llm.backends.base import LogprobResult
 from jev_any_llm.backends.openai_compat import _match_alias
 from jev_any_llm.errors import JevAnyLlmBackendError
+from jev_any_llm.tokens import resolve_alias_token_ids
 
 
 class HuggingFaceBackend:
@@ -45,57 +46,41 @@ class HuggingFaceBackend:
             kwargs["device_map"] = "auto" if device is None else device
         self.model = AutoModelForCausalLM.from_pretrained(model_id, **kwargs).eval()
 
-    def next_token_logprobs(
-        self,
-        prompt: str,
-        *,
-        aliases: dict[str, list[str]],
-        model: str | None = None,
-    ) -> LogprobResult:
-        torch = self.torch
+    def _chat_text(self, prompt: str) -> str:
         messages = [{"role": "user", "content": prompt}]
         try:
-            text = self.tokenizer.apply_chat_template(
+            return self.tokenizer.apply_chat_template(
                 messages,
                 tokenize=False,
                 add_generation_prompt=True,
                 enable_thinking=False,
             )
         except TypeError:
-            text = self.tokenizer.apply_chat_template(
+            return self.tokenizer.apply_chat_template(
                 messages, tokenize=False, add_generation_prompt=True
             )
         except Exception:
-            text = prompt
+            return prompt
 
-        encoded = self.tokenizer(text, return_tensors="pt")
-        encoded = {key: value.to(self.model.device) for key, value in encoded.items()}
-        input_tokens = int(encoded["input_ids"].shape[-1])
-        with torch.inference_mode():
-            logits = self.model(**encoded).logits[0, -1, :].float()
-            log_probs = torch.log_softmax(logits, dim=-1)
-
-        alias_logprobs: dict[str, float] = {}
-        for canonical, surfaces in aliases.items():
-            best = None
-            for surface in surfaces:
-                token_ids = self.tokenizer.encode(surface, add_special_tokens=False)
-                if len(token_ids) != 1:
-                    # Multi-token surfaces: use first token as a proxy (wrap path
-                    # prefers single-token aliases; variants stay single-token).
-                    if not token_ids:
-                        continue
-                    token_ids = token_ids[:1]
-                value = float(log_probs[token_ids[0]].item())
-                if best is None or value > best:
-                    best = value
-            if best is not None and math.isfinite(best):
-                alias_logprobs[canonical] = best
-
+    def _logprobs_from_vector(
+        self,
+        log_probs,
+        aliases: dict[str, list[str]],
+        *,
+        strict_single_token: bool,
+        input_tokens: int,
+    ) -> LogprobResult:
+        token_ids = resolve_alias_token_ids(
+            self.tokenizer, aliases, strict=strict_single_token
+        )
+        alias_logprobs = {
+            canonical: float(log_probs[tid].item())
+            for canonical, tid in token_ids.items()
+            if math.isfinite(float(log_probs[tid].item()))
+        }
         greedy_id = int(log_probs.argmax().item())
         greedy_token = self.tokenizer.decode([greedy_id])
         greedy_alias = _match_alias(greedy_token, aliases)
-
         if not alias_logprobs:
             return LogprobResult(
                 alias_logprobs={},
@@ -112,4 +97,65 @@ class HuggingFaceBackend:
             logprobs_missing=False,
             input_tokens=input_tokens,
             output_tokens=1,
+        )
+
+    def next_token_logprobs(
+        self,
+        prompt: str,
+        *,
+        aliases: dict[str, list[str]],
+        model: str | None = None,
+        strict_single_token: bool = True,
+    ) -> LogprobResult:
+        torch = self.torch
+        text = self._chat_text(prompt)
+        encoded = self.tokenizer(text, return_tensors="pt")
+        encoded = {key: value.to(self.model.device) for key, value in encoded.items()}
+        input_tokens = int(encoded["input_ids"].shape[-1])
+        with torch.inference_mode():
+            logits = self.model(**encoded).logits[0, -1, :].float()
+            log_probs = torch.log_softmax(logits, dim=-1)
+        return self._logprobs_from_vector(
+            log_probs,
+            aliases,
+            strict_single_token=strict_single_token,
+            input_tokens=input_tokens,
+        )
+
+    def prefill_state(self, state_text: str) -> dict[str, Any]:
+        """Shared prefix (system + State) → KV cache; caller forks per branch."""
+        torch = self.torch
+        encoded = self.tokenizer(state_text, return_tensors="pt")
+        encoded = {key: value.to(self.model.device) for key, value in encoded.items()}
+        with torch.inference_mode():
+            out = self.model(**encoded, use_cache=True)
+        return {
+            "past_key_values": out.past_key_values,
+            "prefix_tokens": int(encoded["input_ids"].shape[-1]),
+        }
+
+    def branch_next_token_logprobs(
+        self,
+        cache: dict[str, Any],
+        question_suffix: str,
+        *,
+        aliases: dict[str, list[str]],
+        strict_single_token: bool = True,
+    ) -> LogprobResult:
+        torch = self.torch
+        encoded = self.tokenizer(question_suffix, return_tensors="pt")
+        encoded = {key: value.to(self.model.device) for key, value in encoded.items()}
+        suffix_tokens = int(encoded["input_ids"].shape[-1])
+        with torch.inference_mode():
+            out = self.model(
+                **encoded,
+                past_key_values=cache["past_key_values"],
+                use_cache=True,
+            )
+            log_probs = torch.log_softmax(out.logits[0, -1, :].float(), dim=-1)
+        return self._logprobs_from_vector(
+            log_probs,
+            aliases,
+            strict_single_token=strict_single_token,
+            input_tokens=int(cache["prefix_tokens"]) + suffix_tokens,
         )

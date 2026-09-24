@@ -60,6 +60,24 @@ class MockBackend:
             raw={"table": table},
         )
 
+    def prefill_state(self, state_text: str) -> dict:
+        """Mock shared prefill — stores the full shared prefix text."""
+        return {"prefix": state_text, "prefix_tokens": max(1, len(state_text.split()))}
+
+    def branch_next_token_logprobs(
+        self,
+        cache: dict,
+        question_suffix: str,
+        *,
+        aliases: dict[str, list[str]],
+        strict_single_token: bool = True,
+    ) -> LogprobResult:
+        del strict_single_token
+        prompt = f"{cache.get('prefix', '')}{question_suffix}"
+        result = self.next_token_logprobs(prompt, aliases=aliases)
+        result.input_tokens = int(cache.get("prefix_tokens", 0)) + len(question_suffix.split())
+        return result
+
 
 def peaked(alias: str, aliases: list[str], margin: float = 3.0) -> dict[str, float]:
     """Helper: one alias dominates by ``margin`` nats."""

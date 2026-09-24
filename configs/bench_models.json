@@ -1,0 +1,26 @@
+{
+  "models": [
+    {
+      "id": "Qwen3.5-4B",
+      "hub_guess": "Qwen/Qwen3.5-4B",
+      "role": "primary dense 4B",
+      "branched_artifact": "experiments/jev_mode_benchmark/results/branched_qwen35_4b.json"
+    },
+    {
+      "id": "Qwen3.8-27B",
+      "hub_guess": "Qwen/Qwen3.8-27B",
+      "role": "dense 27B",
+      "branched_artifact": "experiments/jev_mode_benchmark/results/branched_qwen38_27b.json"
+    },
+    {
+      "id": "DeepSeek-V4.1-Flash",
+      "hub_guess": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "role": "MoE flash (TP8)",
+      "branched_artifact": "experiments/jev_mode_benchmark/results/branched_flash_v41.json"
+    }
+  ],
+  "tokenizer_smoke": "python scripts/smoke_tokenizer_aliases.py",
+  "branched_dense": "bash experiments/jev_mode_benchmark/run_branched_dense.sh",
+  "branched_flash_tp8": "bash experiments/jev_mode_benchmark/run_branched_flash_tp8.sh",
+  "report": "experiments/jev_mode_benchmark/REPORT_branched.md"
+}

@@ -1,0 +1,101 @@
+{
+  "model": "Qwen3.8-27B",
+  "n": 2000,
+  "per_class": 500,
+  "max_length": 256,
+  "labels": [
+    "World",
+    "Sports",
+    "Business",
+    "Sci/Tech"
+  ],
+  "choice_token_ids": [
+    357,
+    417,
+    351,
+    414
+  ],
+  "yn_token_ids": [
+    783,
+    443
+  ],
+  "protocol": "branched_kv_vs_isolated_ag_news",
+  "arms": {
+    "isolated_choice": {
+      "metrics": {
+        "n": 2000,
+        "accuracy": 0.84,
+        "nll": 0.6715525984764099,
+        "brier": 0.25490056796044147,
+        "ece_15": 0.10576427736878391,
+        "mean_max_probability": 0.9404992461204529,
+        "mean_entropy_confidence": 0.8915840983390808
+      },
+      "latency_batch": {
+        "calls": 498,
+        "examples_per_call": 4,
+        "p50_ms": 324.05006408691406,
+        "p95_ms": 421.33150787353514,
+        "mean_ms": 337.89799046037666,
+        "qps": 11.837892242419407
+      },
+      "note": "batched quality forward, batch_size=4"
+    },
+    "branched_choice": {
+      "metrics": {
+        "n": 2000,
+        "accuracy": 0.8395,
+        "nll": 0.6716978549957275,
+        "brier": 0.2551014606810911,
+        "ece_15": 0.10552321651577946,
+        "mean_max_probability": 0.9406580328941345,
+        "mean_entropy_confidence": 0.891663134098053
+      },
+      "latency_batch1": {
+        "calls": 1998,
+        "examples_per_call": 1,
+        "p50_ms": 193.94922637939453,
+        "p95_ms": 268.2483505249023,
+        "mean_ms": 198.84925396282512,
+        "qps": 5.028935135894199
+      },
+      "note": "batch-1 prefill+branch; same token sequence as isolated"
+    },
+    "agreement": {
+      "argmax_match_rate": 0.9985,
+      "mean_abs_prob_diff": 0.0009246497065760195
+    },
+    "latency_4q_isolated": {
+      "calls": 28,
+      "examples_per_call": 1,
+      "p50_ms": 463.4274597167969,
+      "p95_ms": 483.5447235107422,
+      "mean_ms": 436.31162915910994,
+      "qps": 2.2919398273368725
+    },
+    "latency_4q_branched": {
+      "calls": 28,
+      "examples_per_call": 1,
+      "p50_ms": 574.2808532714844,
+      "p95_ms": 597.5492706298828,
+      "mean_ms": 566.4108309064593,
+      "qps": 1.765502962575139
+    },
+    "latency_4q_isolated_batch": {
+      "calls": 28,
+      "examples_per_call": 1,
+      "p50_ms": 315.67724609375,
+      "p95_ms": 348.9421936035156,
+      "mean_ms": 318.22769709995816,
+      "qps": 3.1424040368362123
+    }
+  },
+  "summary": {
+    "branched_vs_isolated_speedup": 0.8069700688727596,
+    "batch_vs_isolated_speedup": 1.4680420126928246,
+    "branched_vs_batch_ratio": 1.8192025569715409,
+    "isolated_accuracy": 0.84,
+    "branched_accuracy": 0.8395,
+    "argmax_agreement": 0.9985
+  }
+}

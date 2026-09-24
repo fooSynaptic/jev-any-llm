@@ -17,6 +17,8 @@ from jev_any_llm.contract import (
     score as score_fn,
 )
 from jev_any_llm.wrap import decide as wrap_decide
+from jev_any_llm.branched import decide_branched
+from jev_any_llm.calibration import TemperatureProfile
 
 # Re-export helpers at the package edge.
 noul = noul_fn
@@ -36,6 +38,10 @@ class Client:
             base_url="http://127.0.0.1:8000/v1",
             api_key="EMPTY",
         )
+
+    ``mode="branched"`` uses shared-state prefill + per-question logit readout
+    when the backend supports it (HF / mock); OpenAI-compat falls back to
+    isolated generates.
     """
 
     def __init__(
@@ -50,8 +56,17 @@ class Client:
         timeout: float = 120.0,
         extra_headers: dict[str, str] | None = None,
         default_headers: dict[str, str] | None = None,
+        mode: str = "isolated",
+        temperature_profile: TemperatureProfile | str | None = None,
+        strict_single_token: bool = True,
     ):
         self.model = model
+        self.mode = mode
+        self.strict_single_token = strict_single_token
+        if isinstance(temperature_profile, str):
+            self.temperature_profile = TemperatureProfile.load(temperature_profile)
+        else:
+            self.temperature_profile = temperature_profile
         headers = extra_headers or default_headers
         if backend is not None:
             self.backend = backend
@@ -76,6 +91,8 @@ class Client:
         api_key: str | None = None,
         timeout: float = 120.0,
         extra_headers: dict[str, str] | None = None,
+        mode: str = "isolated",
+        temperature_profile: TemperatureProfile | str | None = None,
     ) -> "Client":
         """Any OpenAI-compatible ``/v1/chat/completions`` endpoint with logprobs.
 
@@ -90,6 +107,8 @@ class Client:
             api_key=api_key,
             timeout=timeout,
             extra_headers=extra_headers,
+            mode=mode,
+            temperature_profile=temperature_profile,
         )
 
     @classmethod
@@ -100,10 +119,11 @@ class Client:
         base_url: str = "http://127.0.0.1:8000/v1",
         api_key: str = "EMPTY",
         timeout: float = 120.0,
+        mode: str = "isolated",
     ) -> "Client":
         """Local or remote vLLM OpenAI server (default ``localhost:8000``)."""
         return cls.from_openai(
-            model, base_url=base_url, api_key=api_key, timeout=timeout
+            model, base_url=base_url, api_key=api_key, timeout=timeout, mode=mode
         )
 
     @classmethod
@@ -112,13 +132,21 @@ class Client:
         model: str,
         *,
         device: str | None = None,
+        mode: str = "branched",
+        temperature_profile: TemperatureProfile | str | None = None,
     ) -> "Client":
         """Local ``transformers`` CausalLM (requires ``pip install 'jev-any-llm[hf]'``)."""
-        return cls(model=model, backend_kind="hf", hf_device=device)
+        return cls(
+            model=model,
+            backend_kind="hf",
+            hf_device=device,
+            mode=mode,
+            temperature_profile=temperature_profile,
+        )
 
     @classmethod
-    def from_mock(cls, backend: GenerateBackend | None = None) -> "Client":
-        return cls(model="mock", backend=backend or MockBackend())
+    def from_mock(cls, backend: GenerateBackend | None = None, *, mode: str = "branched") -> "Client":
+        return cls(model="mock", backend=backend or MockBackend(), mode=mode)
 
     def decide(
         self,
@@ -126,17 +154,35 @@ class Client:
         questions: dict[str, Question],
         *,
         model: str | None = None,
+        mode: str | None = None,
     ) -> DecideResponse:
         request = DecideRequest(
             model=model or self.model,
             state=state,
             questions=questions,
         )
-        return wrap_decide(self.backend, request)
+        return self._run(request, mode=mode or self.mode)
 
-    def decide_raw(self, body: dict[str, Any]) -> DecideResponse:
+    def decide_raw(self, body: dict[str, Any], *, mode: str | None = None) -> DecideResponse:
         request = parse_request(body)
-        return wrap_decide(self.backend, request)
+        return self._run(request, mode=mode or self.mode)
+
+    def _run(self, request: DecideRequest, *, mode: str) -> DecideResponse:
+        if mode == "branched":
+            return decide_branched(
+                self.backend,
+                request,
+                temperature_profile=self.temperature_profile,
+                strict_single_token=self.strict_single_token,
+            )
+        response = wrap_decide(self.backend, request)
+        if self.temperature_profile is None:
+            return response
+        from jev_any_llm.branched import _maybe_retemp
+
+        return _maybe_retemp(
+            response, request, self.backend, self.temperature_profile
+        )
 
 
 def _infer_backend_kind(model: str, base_url: str | None) -> str:

@@ -37,10 +37,10 @@ native single-forward (Phases 2–3) still planned.**
 | Phase | Status | Design | Config | Artifacts |
 | --- | --- | --- | --- | --- |
 | 0 · Contract + wrap locks | **This document** | this file | — | [architecture.svg](docs/figures/architecture.svg), [characteristics.svg](docs/figures/characteristics.svg) |
-| 1 · Wrap (contract) | **Landed** | [§ Wrap path](#wrap-path-phase-1) | env `JEV_ANY_LLM_*` | `src/jev_any_llm/{api,contract,wrap,serve}.py`, `tests/test_contract.py` |
+| 1 · Wrap (contract) | **Landed** | [§ Wrap path](#wrap-path-phase-1) | env `JEV_ANY_LLM_*` | `src/jev_any_llm/`, `tests/test_contract.py`, `tests/test_branched.py` |
 | 2 · Native heads (latency) | Planned | [§ Native backend](#native-backend-phases-2-3) | `configs/native.yaml` (later) | LoRA / head checkpoints |
 | 3 · Single-forward (latency) | Planned | [§ Inference](#inference) | same | latency / questions-per-second cards |
-| Latency benchmark | **Complete** | [protocol](experiments/jev_mode_benchmark/PROTOCOL.md) | benchmark scripts | [hub report](experiments/jev_mode_benchmark/REPORT.md) + per-model scorecards |
+| Latency benchmark | **Complete** | [protocol](experiments/jev_mode_benchmark/PROTOCOL.md) | benchmark scripts | [hub report](experiments/jev_mode_benchmark/REPORT.md) + per-model scorecards · [shared-prefill report](experiments/jev_mode_benchmark/REPORT_branched.md) |
 | Eval harness | Planned | [§ Evaluation](#evaluation) | `configs/eval.yaml` (later) | Brier, ECE, isolation probe |
 
 ## Key characteristics
@@ -73,7 +73,7 @@ This lock is enforced in the backend and in the isolation probe:
 
 | Backend | How isolation is implemented |
 | --- | --- |
-| Wrap path | One generate per question. The prompt contains `state` + that question only. |
+| Wrap path | One judgment per question. Default prompt is `state` + that question only. `mode="branched"` prefills `state` once and continues each question from that cache. |
 | Native (Phases 2–3) | Shared backbone over `state`; per-question heads with no answer-to-answer attention. |
 
 The eval harness includes an **isolation probe**: pairs of questions where a leaked answer from Q1 would change Q2’s gold. Leakage is a failed probe, even if accuracy on each question in isolation is high.
@@ -101,7 +101,7 @@ The Jev JSON on the wire is **jev-any-llm post-processing** of option logprobs. 
 | Model job | Next-token predict an alias (`A`/`Yes`/`2`) |
 | Probability source | Alias-token logprobs, softmax over the closed set |
 | Confidence | Concentration of that distribution (`1 − H(p) / log K`) |
-| Multi-question | N isolated generates; shared `state` text only |
+| Multi-question | N independent judgments. Default: N isolated generates. Optional: one shared `state` prefill, then a per-question suffix (`mode="branched"`). |
 | HTTP JSON | Assembled by jev-any-llm after the generate |
 
 ### 4. Calibration is the primary metric
@@ -279,7 +279,7 @@ Pipeline per question:
    - Noul: `noul = p(Yes)`
    - Choice: map alias → option id; `choice = argmax`; `confidence = 1 − H(p) / log K`
    - Score: `score = Σ i · p(i)`; same confidence formula; attach `legend`
-6. Return. Sibling questions use a separate generate. Prefix cache on `state` is allowed.
+6. Return. Sibling questions stay independent. The default is a separate generate per question. `mode="branched"` prefills `state` once, forks that cache, and reads each question’s alias logits from its own suffix. Alias strings must resolve to one vocab id. OpenAI-compatible servers stay on isolated generates. Measured arms: [REPORT_branched.md](experiments/jev_mode_benchmark/REPORT_branched.md).
 
 Recommended stack for the first prototype: **vLLM or Hugging Face generate with `logprobs`**, Qwen2.5-Instruct as the smoke model. One process. Batch questions of the same request as independent sequences.
 

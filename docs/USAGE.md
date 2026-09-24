@@ -50,6 +50,60 @@ if result.answers["refund"].noul > 0.8:
     route_billing(result.answers["urgency"].score)
 ```
 
+## Branched mode (shared prefill)
+
+When the backend can fork a KV cache (local HF / mock), set `mode="branched"` so
+`state` is prefaced once and each question only appends its suffix before reading
+closed-set logits (no answer-token generation):
+
+```python
+client = Client.from_hf("Qwen/Qwen3.5-4B", mode="branched")
+# or
+client = Client.from_mock(mode="branched")
+```
+
+OpenAI-compatible servers have no portable KV-fork API; `mode="branched"` falls
+back to isolated generates and tags `usage.backend` with `isolated_fallback`.
+
+Optional temperature artifact (default T=1, uncalibrated):
+
+```python
+from jev_any_llm.calibration import TemperatureProfile
+
+client = Client.from_mock(
+    mode="branched",
+    temperature_profile="configs/temperature_profile.example.json",
+)
+```
+
+Strict single-token alias check (tokenizer only; three bench models):
+
+```bash
+python scripts/smoke_tokenizer_aliases.py
+# or: JEV_OPENMODELS_ROOT=/path/to/openmodels python scripts/smoke_tokenizer_aliases.py
+```
+
+## Hosted Jev interchange
+
+The request body for `POST /v1/systemone` matches the public Jev System One shape
+(`model` + `state` + `questions`). Swap only the transport:
+
+| Field | This wrap | Hosted Jev |
+| --- | --- | --- |
+| Base URL | your `jev-any-llm-serve` or gateway | hosted `/v1` root |
+| Auth | `Authorization: Bearer …` if your gateway needs it | vendor API key |
+| `model` | instruct checkpoint / served id | hosted model id |
+
+Answers keep the same `noul` / `choice` / `score` / `probabilities` / `confidence`
+fields so application code can point at either endpoint.
+
+Playground: start the server and open `http://127.0.0.1:8080/`.
+
+System Two (escalate sketch, Phase 2+): [SYSTEM_TWO.md](SYSTEM_TWO.md).
+
+Branched accuracy / latency on the three bench models:
+[REPORT_branched.md](../experiments/jev_mode_benchmark/REPORT_branched.md).
+
 ## Backends (custom LLM entry)
 
 The default custom entry is the **OpenAI-compatible** chat API
@@ -126,7 +180,10 @@ Confidence is a concentration of the same logprob distribution:
 | 3. Generate + logprob | Map options to short aliases; keep those tokens; softmax |
 | 4. Post-process | Fill `noul` / `choice` / `score` / `probabilities` / `confidence` |
 
-Multi-question calls are **N isolated generates** that share `state` text only.
+Multi-question calls default to **N isolated generates** that share `state` text
+only. With `mode="branched"` on HF/mock, `state` is prefaced once and each
+question reuses that KV before reading option-token logits.
+
 Application code owns thresholds, routing, and side effects.
 
 Architecture detail, locks, and Phases 2–3 (native heads / single-forward):

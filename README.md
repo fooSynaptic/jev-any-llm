@@ -3,18 +3,34 @@
 **Wrap any instruct LLM into Jev-mode prediction — and make those decisions SUPER fast.**
 
 Point any OpenAI-compatible API (or local HF weights) at typed questions
-(`Choice` / `Noul` / `Score`) over **program state**. The library scores closed
-options from logprobs (or early-exit mean-pool heads) and returns a Jev-shaped
-`answers` object your code can branch on. On AG News, that path lands
-**~15–88×** faster than the same model’s free-text baseline — see [Results](#results).
+(`Choice` / `Noul` / `Score`) over **program state**. The library returns a
+Jev-shaped `answers` object your code can branch on: closed-option logprobs,
+an early-exit mean-pool head, or KV-share + branch (one shared prefix
+prefilled once, then several already-written candidate suffixes scored
+together). On AG News, early exit is **~15–88×** faster than that model’s
+free-text baseline, and a shared prefix of about 2000 tokens makes branch the
+fastest multi-question arm — see [Results](#results).
 
-| Decoder | Vanilla | L8 mean | Speedup | Δ Acc |
-| --- | ---: | ---: | ---: | ---: |
-| Qwen3.5-4B | 87.05% / 511 ms | **91.73%** / **12.0 ms** | **42.5×** | +4.7 pp |
-| Qwen3.8-27B | 87.0% / 1105 ms | **91.07%** / **12.6 ms** | **87.7×** | +4.1 pp |
-| DeepSeek-V4.1-Flash | 64.63% / 4440 ms | **91.62%** / **299 ms** | **14.9×** | +27 pp |
+<table>
+<tr><th>Decoder</th><th>Vanilla</th><th>L8 mean</th><th>Speedup</th><th>Δ Acc</th></tr>
+<tr><td>Qwen3.5-4B</td><td>87.05% / 511 ms</td><td><b>91.73%</b> / <b>12.0 ms</b></td><td><b>42.5×</b></td><td>+4.7 pp</td></tr>
+<tr><td>Qwen3.8-27B</td><td>87.0% / 1105 ms</td><td><b>91.07%</b> / <b>12.6 ms</b></td><td><b>87.7×</b></td><td>+4.1 pp</td></tr>
+<tr><td>DeepSeek-V4.1-Flash</td><td>64.63% / 4440 ms</td><td><b>91.62%</b> / <b>299 ms</b></td><td><b>14.9×</b></td><td>+27 pp</td></tr>
+<tr><td colspan="5"><b>KV-share + branch</b> — 4 judgments, CUDA-event p50. Parentheses are versus sequential isolated. Bold is the fastest arm on that row.</td></tr>
+<tr><th>Decoder</th><th>Prefix</th><th>Isolated ×4</th><th>Branched</th><th>Isolated batch</th></tr>
+<tr><td>Qwen3.5-4B</td><td>short</td><td>247 ms</td><td>172 ms (1.44×)</td><td><b>104 ms (2.37×)</b></td></tr>
+<tr><td>Qwen3.5-4B</td><td>2057</td><td>783 ms</td><td><b>274 ms (2.86×)</b></td><td>706 ms (1.11×)</td></tr>
+<tr><td>Qwen3.8-27B</td><td>short</td><td>468 ms</td><td>374 ms (1.25×)</td><td><b>378 ms (1.24×)</b></td></tr>
+<tr><td>Qwen3.8-27B</td><td>2057</td><td>3.70 s</td><td><b>1.13 s (3.28×)</b></td><td>3.69 s (1.00×)</td></tr>
+<tr><td>DeepSeek-V4.1-Flash</td><td>87</td><td>7.89 s</td><td>4.51 s (1.75×)</td><td><b>2.98 s (2.65×)</b></td></tr>
+<tr><td>DeepSeek-V4.1-Flash</td><td>2082</td><td>17.43 s</td><td><b>7.42 s (2.35×)</b></td><td>12.78 s (1.36×)</td></tr>
+</table>
 
 Full scorecards: [benchmark report](experiments/jev_mode_benchmark/REPORT.md) ·
+[4B](experiments/jev_mode_benchmark/REPORT_qwen35_4b.md) ·
+[27B](experiments/jev_mode_benchmark/REPORT_qwen38_27b.md) ·
+[Flash](experiments/jev_mode_benchmark/REPORT_deepseek_v41_flash.md) ·
+[branched](experiments/jev_mode_benchmark/REPORT_branched.md).
 
 ## Motivation
 
@@ -37,6 +53,9 @@ scaffolding on the path; the product shape above is the goal.
 ```bash
 pip install -e '.[dev]'
 ```
+
+Branched mode (`mode="branched"`), playground, and hosted-Jev notes:
+[docs/USAGE.md](docs/USAGE.md).
 
 ```python
 from jev_any_llm import Client, noul, choice, score
@@ -82,7 +101,10 @@ More backends (vLLM / SGLang / hosted OpenAI-compat / HF), env vars, and
 ![Any instruct LLM → isolated generate + logprob → Choice / Noul / Score](docs/figures/architecture.svg)
 
 1. **Plug in a model** — OpenAI-compatible `chat/completions` with `logprobs`, or local HF weights.
-2. **Isolate questions** — each prompt is `state` + that question only.
+2. **Isolate questions** — each prompt is `state` + that question only (default).
+   Optional `mode="branched"`: prefill `state` once, replicate that KV, and
+   score already-written per-question suffixes together (HF / mock; OpenAI
+   falls back to isolated).
 3. **Score closed options** — alias tokens (`A`/`B`, `Yes`/`No`, `0`..`K-1`) → softmax.
 4. **Your code branches** — the library fills `noul` / `choice` / `score` / `confidence`.
 
@@ -123,9 +145,28 @@ layers weigh down classification.*
 | Qwen3.8-27B | 87.0% / 1105 ms | **91.07%** / **12.6 ms** | **87.7×** | +4.1 pp |
 | DeepSeek-V4.1-Flash | 64.63% / 4440 ms | **91.62%** / **299 ms** | **14.9×** | +27 pp |
 
+### KV-share + branch
+
+`mode="branched"` is a KV-share schedule. Several candidate suffixes are
+already written and share one prefix. The prefix is prefilled once, that KV is
+replicated onto each branch, and the suffixes are prefilled in one batch so
+every candidate position can be scored.
+Full arms: [REPORT_branched.md](experiments/jev_mode_benchmark/REPORT_branched.md).
+
+This is the schedule for **complex reasoning** and **agent calls** that fan
+one long state out into several candidates: tree-of-thought traces, best-of-N,
+search, or several next actions / tool sequences scored against the same
+history. Streaming chat, where the next token is still unknown, stays on
+autoregressive decode.
+
+The opening table is the measurement: a short prefix is faster as an isolated
+batch; a shared prefix of about 2000 tokens is faster as branched. Dense Qwen
+branched wrap accuracy stays within ±0.05 pp of isolated (agree ~99.8%).
+Flash Choice agree on a 200-row subset is 88%.
+
 Full scorecards: [benchmark report](experiments/jev_mode_benchmark/REPORT.md) ·
 [4B](experiments/jev_mode_benchmark/REPORT_qwen35_4b.md) ·
 [27B](experiments/jev_mode_benchmark/REPORT_qwen38_27b.md) ·
-[Flash](experiments/jev_mode_benchmark/REPORT_deepseek_v41_flash.md).
-
+[Flash](experiments/jev_mode_benchmark/REPORT_deepseek_v41_flash.md) ·
+[branched](experiments/jev_mode_benchmark/REPORT_branched.md).
 

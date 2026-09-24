@@ -1,0 +1,9 @@
+{
+  "model": "Qwen/Qwen3.5-4B",
+  "default": 1.0,
+  "by_question": {
+    "refund": 0.9,
+    "team": 1.1,
+    "urgency": 1.0
+  }
+}

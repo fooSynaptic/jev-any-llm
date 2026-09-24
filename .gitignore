@@ -10,5 +10,6 @@ build/
 artifacts/
 .cache/
 .DS_Store
+poetry.lock
 # Internal cluster launchers (paths / device maps) — keep out of public trees
 experiments/jev_mode_benchmark/_local/

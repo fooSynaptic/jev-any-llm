@@ -288,6 +288,35 @@ python3 render_zero_train.py
 python3 render_protocol.py
 ```
 
+## 11b. Shared-prefill follow-up (`mode="branched"`)
+
+Arms locked against each other (same AG News Choice letters, same seed):
+
+| Arm | Meaning |
+| --- | --- |
+| `isolated` | Full prompt per question, N forwards |
+| `branched` | Shared state prefill + KV fork + question-suffix logits |
+| `isolated_batch` | N independent prompts in one batch (latency control) |
+
+Dense HF:
+
+```bash
+export JEV_MODEL=... JEV_DATA=... JEV_OUT=results JEV_TAG=branched_qwen35_4b
+bash run_branched_dense.sh
+# or: python3 benchmark_branched.py --model ... --test-csv ... --output ...
+```
+
+Flash TP8 (official inference stack; suffix decode is token-by-token):
+
+```bash
+export JEV_FLASH_CKPT=... JEV_FLASH_HF=... JEV_DATA=... JEV_OUT=results
+bash run_branched_flash_tp8.sh
+```
+
+Narrative + tables: [REPORT_branched.md](REPORT_branched.md).
+JSON: `results/branched_qwen35_4b.json`, `branched_qwen38_27b.json`,
+`branched_flash_v41.json`.
+
 ## 12. Artifacts
 
 | Path | Role |
@@ -297,6 +326,7 @@ python3 render_protocol.py
 | [`REPORT_qwen35_4b.md`](REPORT_qwen35_4b.md) | Qwen3.5-4B scorecard |
 | [`REPORT_qwen38_27b.md`](REPORT_qwen38_27b.md) | Qwen3.8-27B scorecard |
 | [`REPORT_deepseek_v41_flash.md`](REPORT_deepseek_v41_flash.md) | DeepSeek-V4.1-Flash scorecard |
+| [`REPORT_branched.md`](REPORT_branched.md) | Branched KV vs isolated follow-up |
 | [`figures/protocol.svg`](figures/protocol.svg) | This protocol’s flowchart |
 | [`figures/results.svg`](figures/results.svg) | Vanilla vs wrap vs L8 |
 | [`figures/depth_sweep.svg`](figures/depth_sweep.svg) | Exit-layer frontier |

@@ -92,6 +92,25 @@ relative recipe.
 3. **[DeepSeek-V4.1-Flash](REPORT_deepseek_v41_flash.md)** — TP8 MoE replica.
    Layer 8 = 14.9× / 91.62%; wrap letter/word weak (34–48%).
 
+## Shared-prefill follow-up
+
+After the primary scorecards, the same three decoders were measured on
+**KV-share + branch**: one shared prefix prefilled once, KV replicated across
+branches, then one batched prefill of the already-written candidate suffixes.
+Full tables: [REPORT_branched.md](REPORT_branched.md).
+
+| Model | Isolated Acc | Branched Acc | Agree | Long-prefix latency winner |
+| --- | ---: | ---: | ---: | --- |
+| Qwen3.5-4B | 85.15% | 85.10% | 99.8% | **branched** (2.86× vs seq, prefix 2057) |
+| Qwen3.8-27B | 84.00% | 83.95% | 99.9% | **branched** (3.28× vs seq, prefix 2057) |
+| Flash (TP8) | 81.85% | 88%† | 88%† | **branched** (2.35× vs seq, prefix 2082) |
+
+† Flash branched quality is a 200-row subset.
+
+**Read:** on dense Qwen, branched matches isolated accuracy. With a shared
+prefix of about 2000 tokens, branched is the fastest of the three arms on all
+three decoders. On a short AG News prefix, isolated batch is the fast arm.
+
 ## Recommendation
 
 Ship **two production tiers**:
@@ -115,6 +134,7 @@ Ship **two production tiers**:
 | [REPORT_qwen35_4b.md](REPORT_qwen35_4b.md) | Full 4B narrative |
 | [REPORT_qwen38_27b.md](REPORT_qwen38_27b.md) | Full 27B narrative |
 | [REPORT_deepseek_v41_flash.md](REPORT_deepseek_v41_flash.md) | Full Flash narrative |
+| [REPORT_branched.md](REPORT_branched.md) | Branched KV vs isolated follow-up |
 | [NOTES_flash_v41.md](NOTES_flash_v41.md) | Flash run log |
-| [`results/`](results/) | JSON measurements (`summary.json`, `formal_*.json`, `flash_v41_summary.json`, …) |
+| [`results/`](results/) | JSON measurements (`summary.json`, `formal_*.json`, `branched_*.json`, …) |
 | [`figures/`](figures/) | Depth / results / zero-train / protocol SVGs |

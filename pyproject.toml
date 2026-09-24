@@ -25,6 +25,9 @@ jev-any-llm-serve = "jev_any_llm.serve:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+jev_any_llm = ["playground.html"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
