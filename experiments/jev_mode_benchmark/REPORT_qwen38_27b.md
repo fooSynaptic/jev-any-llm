@@ -29,18 +29,31 @@ letter aliases **86.95%**, spelled-out class words **86.7%** (argmax agreement
 
 | Arm | Accuracy | Batch-1 p50 | Notes |
 | --- | ---: | ---: | --- |
-| Vanilla free text | **87.0%** | **1105.12 ms** | TTFT 96.50 ms; mean ~13 generated tokens |
-| Letter `A`–`D` (scheme 1 / 4) | **86.95%** | **89.26 ms** (word-forward probe) | Same closed-set hit ~99.8%; letter↔word agreement 97.8% |
-| Word verbalizer (first-token style) | 86.7% | 89.26 ms | ECE 8.86% |
+| Vanilla free text | **87.0%** | **1105.12 ms** | TTFT 96.50 ms; prefill-only 92.59 ms; mean ~13 generated tokens |
+| Letter generate-1 (scheme 1) | **86.95%** | **95.12 ms** | 40 calls, 10 warmup, prompt 168 tokens; **11.62×** vs vanilla |
+| Letter last logits (scheme 4) | **86.95%** | **91.98 ms** | same prompt; **12.01×** vs vanilla |
+| Word verbalizer (first-token style) | 86.7% | 89.26 ms | ECE 8.86%; letter↔word agreement 97.8% |
 | Length-norm full label words | **88.03%** | 377.70 ms (4 full passes) | Best zero-train accuracy |
 | Same + KV batched scoring | — | **225.38 ms** | vs naive 4× forward 363.68 ms; argmax agree 100% on n=64 |
-| 16-symbol codebook | 23.98% | — | Rejected (near chance) |
+| 16-symbol codebook (scheme 3) | 23.98% | **121.23 ms** | Rejected (near chance); prompt 256 tokens |
 | Isolated topic (of four) | 86.95% | 358.95 ms (4 sequential) | |
 | Packed four answers | 85.7% | 293.56 ms | Topic flip vs isolated 5.7%; binary heads drift hard |
 
 Packed generation is slightly faster than four sequential prefills and close to
 an independent batch of four (284.88 ms), and it still couples answers — same
 rejection as on 4B.
+
+Scheme 1 and scheme 4 now have separate batch-1 timings on the letter prompt.
+Generating one token is 95.12 ms; the last-logit readout is 91.98 ms. The
+earlier 89.26 ms figure stays on the word verbalizer.
+
+Scheme 5 retrains the layer-8 mean-pool linear head on the locked
+8,000 / 2,000 / 4,000 split, once with the causal mask and once with a 4D
+bidirectional mask. Causal accuracy is **90.38%** (ECE 0.99%). Bidirectional
+accuracy is **90.95%** (ECE 1.49%), **+0.57 pp**. The mask changes the hidden
+state (max abs difference 24.58). The closed depth-sweep operating point stays
+the causal layer-8 row below (91.07% / 12.60 ms). Artifact:
+[`results/stage2_qwen38_27b.json`](results/stage2_qwen38_27b.json).
 
 ### Depth sweep (compiled linear head)
 

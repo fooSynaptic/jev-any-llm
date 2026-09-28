@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1168 400"
+     font-family="Helvetica Neue,Arial,sans-serif">
+  <rect width="100%" height="100%" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+
+  <!-- A Fork -->
+  <g transform="translate(24,24)">
+    <rect width="268" height="352" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+    <g transform="translate(34,28)">
+      <rect width="200" height="200" rx="40" fill="#0F766E"/>
+      <g fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M100 168 V108"/>
+        <path d="M100 108 C78 78 58 62 42 50"/>
+        <path d="M100 108 V46"/>
+        <path d="M100 108 C122 78 142 62 158 50"/>
+      </g>
+      <g fill="#ffffff">
+        <circle cx="42" cy="50" r="13"/>
+        <circle cx="100" cy="46" r="13"/>
+        <circle cx="158" cy="50" r="13"/>
+      </g>
+    </g>
+    <text x="134" y="268" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a2e">A Fork</text>
+    <text x="134" y="296" text-anchor="middle" font-size="13" fill="#64748b">One state, three judgments</text>
+  </g>
+
+  <!-- B Token -->
+  <g transform="translate(308,24)">
+    <rect width="268" height="352" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+    <g transform="translate(34,28)">
+      <rect width="200" height="200" rx="40" fill="#12141A"/>
+      <rect x="28" y="72" width="144" height="52" rx="26" fill="#F5B942"/>
+      <path d="M40 142 Q100 176 160 142" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <text x="134" y="268" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a2e">B Token</text>
+    <text x="134" y="296" text-anchor="middle" font-size="13" fill="#64748b">One closed-set alias</text>
+  </g>
+
+  <!-- C Early exit -->
+  <g transform="translate(592,24)">
+    <rect width="268" height="352" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+    <g transform="translate(34,28)">
+      <rect width="200" height="200" rx="40" fill="#312E81"/>
+      <rect x="36" y="54" width="78" height="22" rx="11" fill="#22D3EE"/>
+      <circle cx="124" cy="65" r="14" fill="#22D3EE"/>
+      <rect x="36" y="98" width="128" height="18" rx="9" fill="#E0E7FF"/>
+      <rect x="36" y="134" width="112" height="18" rx="9" fill="#A5B4FC"/>
+    </g>
+    <text x="134" y="268" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a2e">C Early exit</text>
+    <text x="134" y="296" text-anchor="middle" font-size="13" fill="#64748b">Stop the stack early</text>
+  </g>
+
+  <!-- D Monogram -->
+  <g transform="translate(876,24)">
+    <rect width="268" height="352" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+    <g transform="translate(34,28)">
+      <rect width="200" height="200" rx="40" fill="#F4F0E6"/>
+      <g fill="none" stroke="#111111" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M118 56 H78 V122"/>
+        <path d="M78 122 C78 156 44 160 40 136"/>
+        <path d="M78 122 C98 148 118 162 112 172"/>
+      </g>
+      <rect x="132" y="48" width="14" height="14" rx="2" fill="#E23D28"/>
+    </g>
+    <text x="134" y="268" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a2e">D Monogram</text>
+    <text x="134" y="296" text-anchor="middle" font-size="13" fill="#64748b">J whose hook forks</text>
+  </g>
+</svg>

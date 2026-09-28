@@ -1,0 +1,127 @@
+{
+  "model": "Qwen3.5-4B",
+  "arm": "typed_heads_layer8",
+  "exit_layer": 8,
+  "pooling": "mean",
+  "splits": {
+    "ag_news": {
+      "train_per_class": 2000,
+      "calibration_per_class": 500,
+      "test_per_class": 1000
+    },
+    "sst2": {
+      "train_per_class": 2000,
+      "calibration_per_class": 500,
+      "test_per_class": 428
+    },
+    "sst5": {
+      "train_per_class": 1188,
+      "calibration_per_class": 20,
+      "test_per_class": 278
+    }
+  },
+  "noul": {
+    "n": 856,
+    "accuracy": 0.8843457943925234,
+    "nll": 0.28186681503194316,
+    "brier": 0.16827666863835256,
+    "ece_15": 0.02271922232221988,
+    "mean_max_probability": 0.8952342840458827,
+    "mean_entropy_confidence": 0.6429251618039473,
+    "temperature": 3.054921113215514
+  },
+  "choice": {
+    "set_scorer_k4": {
+      "n": 4000,
+      "accuracy": 0.88575,
+      "nll": 0.4257093369960785,
+      "brier": 0.1873689664494549,
+      "ece_15": 0.042527001515030874,
+      "mean_max_probability": 0.8656713962554932,
+      "mean_entropy_confidence": 0.7091872692108154,
+      "temperature": 1.8836490894898015
+    },
+    "subsets_including_gold": [
+      {
+        "k": 2,
+        "n": 4000,
+        "accuracy": 0.95025,
+        "chance": 0.5
+      },
+      {
+        "k": 3,
+        "n": 4000,
+        "accuracy": 0.91825,
+        "chance": 0.3333333333333333
+      },
+      {
+        "k": 4,
+        "n": 4000,
+        "accuracy": 0.88575,
+        "chance": 0.25
+      }
+    ],
+    "fixed_logistic": {
+      "n": 4000,
+      "accuracy": 0.894,
+      "nll": 0.3095985191781,
+      "brier": 0.16109078980033123,
+      "ece_15": 0.015063265832176731,
+      "mean_max_probability": 0.8973044839059746,
+      "mean_entropy_confidence": 0.7923916160399967,
+      "temperature": 2.851018267503911
+    }
+  },
+  "score": {
+    "cumulative": {
+      "n": 1390,
+      "accuracy": 0.44532374100719424,
+      "nll": 1.2171616554260254,
+      "brier": 0.6549479656546741,
+      "ece_15": 0.039408581784303245,
+      "mean_max_probability": 0.4692065417766571,
+      "mean_entropy_confidence": 0.24506571888923645,
+      "mae": 0.7150698397771972,
+      "mean_expected_score": 1.9060392460561586,
+      "temperature": 1.584893192461114
+    },
+    "fixed_logistic": {
+      "n": 1390,
+      "accuracy": 0.441726618705036,
+      "nll": 1.2311507891833917,
+      "brier": 0.6576434675022235,
+      "ece_15": 0.029941390935119425,
+      "mean_max_probability": 0.4400118933499333,
+      "mean_entropy_confidence": 0.18642971475763126,
+      "mae": 0.7321354334612018,
+      "mean_expected_score": 2.0133233732919704,
+      "temperature": 7.161434102129022
+    },
+    "levels": [
+      "very negative",
+      "negative",
+      "neutral",
+      "positive",
+      "very positive"
+    ]
+  },
+  "latency": {
+    "one_forward_three_heads": {
+      "calls": 40,
+      "examples_per_call": 1,
+      "p50_ms": 11.837696075439453,
+      "p95_ms": 12.028688287734985,
+      "mean_ms": 11.854942393302917,
+      "qps": 84.35300373664566,
+      "prompt_tokens": 73
+    },
+    "three_separate_forwards": {
+      "calls": 40,
+      "examples_per_call": 1,
+      "p50_ms": 34.65995216369629,
+      "p95_ms": 35.10083675384521,
+      "mean_ms": 34.76801815032959,
+      "qps": 28.762065058647018
+    }
+  }
+}

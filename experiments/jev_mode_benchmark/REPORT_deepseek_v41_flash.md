@@ -29,17 +29,22 @@ is the labelled compiled head.
 
 | Arm | Accuracy | Batch-1 p50 | Notes |
 | --- | ---: | ---: | --- |
-| Vanilla free text | **64.63%** | **4439.71 ms** | parse rate 84.88%; mean 10.44 output tokens |
-| Letter `A`–`D` closed set | 34.43% | 1915.96 ms | greedy-in-set 27.9%; ECE 27.2% |
+| Vanilla free text | **64.63%** | **4439.71 ms** | parse rate 84.88%; mean 10.44 output tokens; prefill-only 1844.74 ms |
+| Letter generate-1 (scheme 1) | 34.43% | **1912.24 ms** | 24 calls, 6 warmup, prompt 155 tokens; **2.32×** vs vanilla |
+| Letter last logits (scheme 4) | 34.43% | **1915.96 ms** | same prompt; greedy-in-set 27.9%; ECE 27.2% |
 | Word verbalizer | 47.53% | 1848.99 ms | greedy-in-set 28.2%; letter↔word argmax agreement 38.6% |
-| 16-symbol codebook | 24.85% | — | near chance (quality throughput p50 4262 ms / batch 8) |
+| 16-symbol codebook (scheme 3) | 24.85% | **2195.94 ms** | batch-1 forward, prompt 256 tokens; near chance |
 | Isolated topic (of four) | 32.80% | 7098.54 ms (4 sequential) | |
 | Packed four answers | 26.05% | 2775.59 ms | flip vs isolated 0.37–0.80 |
 
-Letter forward is within 4% of TTFT (1846.07 ms): almost all wrap cost is one
-prefill. Relative to vanilla text, that is **2.32×**. Packed four-answer
-generation is **2.56×** faster than four isolated prefills and still couples
-answers (same rejection as on Qwen).
+Letter last logits (1915.96 ms) and generate-1 (1912.24 ms) both sit within 4%
+of TTFT (1846.07 ms): almost all wrap cost is one prefill. Relative to vanilla
+text, that is **2.32×**. The codebook forward at batch 1 is 2195.94 ms and
+stays near chance (24.85%). Scheme 5 stays unsupported: the official CSA2
+kernels have no bidirectional mask switch. Packed four-answer generation is
+**2.56×** faster than four isolated prefills and still couples answers (same
+rejection as on Qwen). Artifact:
+[`results/stage2_flash_v41.json`](results/stage2_flash_v41.json).
 
 NLL / Brier on several wrap arms are undefined (`null` in the JSON) because
 some closed-set probability rows are non-finite under FP8 readout; accuracy and

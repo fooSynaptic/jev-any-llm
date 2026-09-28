@@ -1,0 +1,13 @@
+{
+  "model": "Qwen3.8-27B",
+  "arm": "stage1_prefill_only",
+  "prompt": "ar_prompt",
+  "prefill_only": {
+    "calls": 40,
+    "examples_per_call": 1,
+    "p50_ms": 92.5892,
+    "p95_ms": 92.9976,
+    "mean_ms": 92.6805,
+    "prompt_tokens": 123
+  }
+}

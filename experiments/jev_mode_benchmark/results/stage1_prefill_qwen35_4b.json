@@ -1,0 +1,14 @@
+{
+  "model": "Qwen3.5-4B",
+  "arm": "stage1_prefill_only",
+  "prompt": "ar_prompt",
+  "note": "Same probe as the closed 43.56 ms run. This repeat landed 44.75 ms; the closed scorecard keeps 43.56 ms.",
+  "prefill_only": {
+    "calls": 40,
+    "examples_per_call": 1,
+    "p50_ms": 44.7509,
+    "p95_ms": 44.9924,
+    "mean_ms": 44.7666,
+    "prompt_tokens": 123
+  }
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1200 280"
+     font-family="Helvetica Neue,Arial,sans-serif">
+  <rect width="1200" height="280" rx="16" fill="#1C1917"/>
+  <g transform="translate(40,40)">
+    <rect width="200" height="200" rx="40" fill="#F4F0E6"/>
+    <g fill="none" stroke="#111111" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M118 56 H78 V122"/>
+      <path d="M78 122 C78 156 44 160 40 136"/>
+      <path d="M78 122 C98 148 118 162 112 172"/>
+    </g>
+    <rect x="132" y="48" width="14" height="14" rx="2" fill="#E23D28"/>
+  </g>
+  <rect x="280" y="72" width="2" height="136" fill="#44403C"/>
+  <text x="320" y="132" font-size="52" font-weight="700" fill="#FAFAF9">jev-any-llm</text>
+  <text x="320" y="180" font-size="22" fill="#D6D3D1">Typed decisions on any instruct LLM, fast enough to branch on.</text>
+</svg>

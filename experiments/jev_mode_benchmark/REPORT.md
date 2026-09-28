@@ -58,7 +58,7 @@ length-normalised multi-token verbalizer + shared-prefill KV scoring.
 | Qwen3.5-4B | **84.17%** (length-norm words + KV) | 110.03 ms | −2.88 pp | **4.65×** |
 | Qwen3.5-4B (cheap) | 83.17% (single-token words) | 44.51 ms | −3.88 pp | **11.5×** |
 | Qwen3.8-27B | **88.03%** (length-norm words) | 225–378 ms (KV / 4-pass) | **+1.0 pp** vs text | ~3–5× |
-| Qwen3.8-27B (cheap) | ~86.9% (letter/word) | ~89 ms | ≈ match text | **~12×** |
+| Qwen3.8-27B (cheap) | ~86.9% (letter/word) | letter 92–95 ms; word 89 ms | ≈ match text | **~12×** |
 | DeepSeek-V4.1-Flash | 47.53% (word) / 34.43% (letter) | ~1.8–1.9 s | far below text | ~2.3× |
 
 **Read:** on Qwen dense checkpoints, wrap alone is already a large latency win;
@@ -111,6 +111,38 @@ Full tables: [REPORT_branched.md](REPORT_branched.md).
 prefix of about 2000 tokens, branched is the fastest of the three arms on all
 three decoders. On a short AG News prefix, isolated batch is the fast arm.
 
+## Typed heads on one state (Qwen3.5-4B)
+
+The layer-8 row above is one four-way logistic on the eighth hidden state of a
+full forward. A separate 4B run cuts the stack after layer 8 and fits three
+heads on that one pooled state: yes/no on SST-2, a variable-size Choice head on
+AG News, and cumulative logits on SST-5.
+
+| Head | Result on the truncated state | Same-state logistic |
+| --- | --- | --- |
+| Yes / no (SST-2) | 88.43%, ECE 2.27% | This row is that logistic |
+| Choice, 4 options | 88.58%, ECE 4.25% | 89.40%, ECE 1.51% |
+| Score, cumulative (SST-5) | 44.53%, MAE 0.715 | 44.17%, MAE 0.732 |
+| One forward, three heads | **11.84 ms** p50 | Three forwards: 34.66 ms (2.93×) |
+
+Full table: [REPORT_typed_heads.md](REPORT_typed_heads.md). The decide call
+still uses the wrap path.
+
+## Early exit, then four questions
+
+Layer 8 and the full-depth KV branch were already measured separately. This
+run cuts the stack at layer 8 and times four judgments on that cut: a packed
+branch (Qwen) or a token-by-token branch (Flash), and one prefix forward with
+four readouts.
+
+| Schedule, ~2000-token prefix | Qwen3.5-4B | Qwen3.8-27B | Flash |
+| --- | ---: | ---: | ---: |
+| One forward, four readouts | **38.48 ms** | **109.59 ms** | **703.49 ms** |
+| Prefix, then branch | 74.24 ms | 179.42 ms | 9069.57 ms |
+| Four isolated forwards | 157.06 ms | 444.81 ms | 3213.74 ms |
+
+Full table: [REPORT_early_branch.md](REPORT_early_branch.md).
+
 ## Recommendation
 
 Ship **two production tiers**:
@@ -135,6 +167,8 @@ Ship **two production tiers**:
 | [REPORT_qwen38_27b.md](REPORT_qwen38_27b.md) | Full 27B narrative |
 | [REPORT_deepseek_v41_flash.md](REPORT_deepseek_v41_flash.md) | Full Flash narrative |
 | [REPORT_branched.md](REPORT_branched.md) | Branched KV vs isolated follow-up |
+| [REPORT_typed_heads.md](REPORT_typed_heads.md) | Yes/no, variable Choice, cumulative Score on one layer-8 state |
+| [REPORT_early_branch.md](REPORT_early_branch.md) | Layer-8 prefix, then four questions by branch or one forward |
 | [NOTES_flash_v41.md](NOTES_flash_v41.md) | Flash run log |
 | [`results/`](results/) | JSON measurements (`summary.json`, `formal_*.json`, `branched_*.json`, …) |
 | [`figures/`](figures/) | Depth / results / zero-train / protocol SVGs |

@@ -120,8 +120,19 @@ Closed-set aliases that must be a single tokenizer id use
 `alias_token_ids(..., leading_space=False)`. `Sci/Tech` truncated to `Sci` is
 the single-token word arm.
 
-**Closed numbers:** 87.05%, 511.05 ms batch-1, TTFT 49.01 ms. Word verbalizer
-83.17%; letter verbalizer 80.53%. Every later speedup is against 511.05 ms.
+**Closed numbers (Qwen3.5-4B):** 87.05%, 511.05 ms batch-1, TTFT 49.01 ms,
+prefill-only 43.56 ms. Word verbalizer 83.17%; letter verbalizer 80.53%.
+Every later speedup is against 511.05 ms.
+
+Prefill-only is one forward of the same free-text prompt (`use_cache=True` on
+dense HF, `start_pos=0` on Flash TP8), with no generated tokens. CUDA-event
+p50 after warmup.
+
+| Decoder | Prefill-only p50 | Prompt tokens | Calls |
+| --- | ---: | ---: | ---: |
+| Qwen3.5-4B | 43.56 ms | (closed run) | (closed run) |
+| Qwen3.8-27B | 92.59 ms | 123 | 40 |
+| DeepSeek-V4.1-Flash | 1844.74 ms | 115 | 24 |
 
 ## 5. Stage 2 — wrap schemes (zero training)
 
@@ -135,6 +146,24 @@ the single-token word arm.
 
 Isolation rule for scheme 2: if later answers flip when earlier answer tokens
 are visible, the packed form is out of the Jev-compatible path.
+
+The table above is the closed Qwen3.5-4B scorecard. Qwen3.8-27B and
+DeepSeek-V4.1-Flash keep those accuracies and add the missing batch-1
+latencies (27B: 10 warmup, 40 calls, one Hopper GPU with 96GB HBM; Flash: 6
+warmup, 24 calls, TP8). Scheme 2 stays on the packed rows already in each
+model report.
+
+| # | Qwen3.8-27B | DeepSeek-V4.1-Flash |
+| ---: | --- | --- |
+| 1 | 86.95%, 95.12 ms, 11.62× | 34.43%, 1912.24 ms, 2.32× |
+| 3 | 23.98%, 121.23 ms | 24.85%, 2195.94 ms |
+| 4 | 86.95%, 91.98 ms, 12.01× | 34.43%, 1915.96 ms, 2.32× |
+| 5 | causal 90.38% vs bidirectional 90.95% (+0.57 pp; hidden max abs 24.58) | unsupported on CSA2 official kernels |
+
+Speedups use each model’s own vanilla text baseline (27B 1105.12 ms, Flash
+4439.71 ms). Artifacts:
+[`results/stage2_qwen38_27b.json`](results/stage2_qwen38_27b.json),
+[`results/stage2_flash_v41.json`](results/stage2_flash_v41.json).
 
 ## 6. Stage 3 — compiled conversion
 
@@ -327,6 +356,9 @@ JSON: `results/branched_qwen35_4b.json`, `branched_qwen38_27b.json`,
 | [`REPORT_qwen38_27b.md`](REPORT_qwen38_27b.md) | Qwen3.8-27B scorecard |
 | [`REPORT_deepseek_v41_flash.md`](REPORT_deepseek_v41_flash.md) | DeepSeek-V4.1-Flash scorecard |
 | [`REPORT_branched.md`](REPORT_branched.md) | Branched KV vs isolated follow-up |
+| [`REPORT_typed_heads.md`](REPORT_typed_heads.md) | Yes/no, variable Choice, cumulative Score on one layer-8 state |
+| [`REPORT_early_branch.md`](REPORT_early_branch.md) | Layer-8 prefix, then four questions by branch or one forward |
+| [`results/typed_heads_qwen35_4b.json`](results/typed_heads_qwen35_4b.json) | Typed-head measurements, Qwen3.5-4B |
 | [`figures/protocol.svg`](figures/protocol.svg) | This protocol’s flowchart |
 | [`figures/results.svg`](figures/results.svg) | Vanilla vs wrap vs L8 |
 | [`figures/depth_sweep.svg`](figures/depth_sweep.svg) | Exit-layer frontier |

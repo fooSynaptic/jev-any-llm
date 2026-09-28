@@ -1,0 +1,34 @@
+{
+  "model": "DeepSeek-V4.1-Flash",
+  "arm": "stage2_gaps",
+  "latency": {
+    "scheme_1_generate1": {
+      "calls": 24,
+      "warmup": 6,
+      "examples_per_call": 1,
+      "p50_ms": 1912.2415161132812,
+      "p95_ms": 1925.9324584960937,
+      "mean_ms": 1912.942647298177,
+      "qps": 0.5227548256150758,
+      "prompt_tokens": 155
+    },
+    "scheme_3_codebook_forward": {
+      "calls": 24,
+      "warmup": 6,
+      "examples_per_call": 1,
+      "p50_ms": 2195.9420166015625,
+      "p95_ms": 2219.6864501953123,
+      "mean_ms": 2195.9918924967446,
+      "qps": 0.4553750874112038,
+      "prompt_tokens": 256
+    },
+    "scheme_4_last_logits": {
+      "source": "existing letter_forward",
+      "calls": 24,
+      "examples_per_call": 1,
+      "p50_ms": 1915.9609985351562,
+      "prompt_tokens": 155
+    }
+  },
+  "scheme_5": "unsupported on CSA2 official kernels"
+}

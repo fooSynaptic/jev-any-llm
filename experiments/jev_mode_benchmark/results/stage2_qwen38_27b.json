@@ -1,0 +1,58 @@
+{
+  "model": "Qwen3.8-27B",
+  "arm": "stage2_gaps",
+  "latency": {
+    "scheme_1_generate1": {
+      "calls": 40,
+      "warmup": 10,
+      "examples_per_call": 1,
+      "p50_ms": 95.11798477172852,
+      "p95_ms": 95.40993919372559,
+      "mean_ms": 95.11947517395019,
+      "qps": 10.513094171001734,
+      "prompt_tokens": 168
+    },
+    "scheme_4_last_logits": {
+      "calls": 40,
+      "warmup": 10,
+      "examples_per_call": 1,
+      "p50_ms": 91.9843978881836,
+      "p95_ms": 92.1990924835205,
+      "mean_ms": 91.99462757110595,
+      "qps": 10.870199993223126,
+      "prompt_tokens": 168
+    },
+    "scheme_3_codebook_forward": {
+      "calls": 40,
+      "warmup": 10,
+      "examples_per_call": 1,
+      "p50_ms": 121.22616195678711,
+      "p95_ms": 121.47682266235351,
+      "mean_ms": 121.19101200103759,
+      "qps": 8.251436995933645,
+      "prompt_tokens": 256
+    }
+  },
+  "scheme_5": {
+    "exit_layer": 8,
+    "pooling": "mean",
+    "causal": {
+      "accuracy": 0.90375,
+      "brier": 0.1470921564904873,
+      "ece_15": 0.009860526606440548,
+      "temperature": 1.8620871366628684
+    },
+    "bidirectional": {
+      "accuracy": 0.9095,
+      "brier": 0.1433045606007448,
+      "ece_15": 0.0149093834012747,
+      "temperature": 2.0653801558105305
+    },
+    "accuracy_delta_pp": 0.575,
+    "mask_sanity": {
+      "max_abs_hidden_difference": 24.578125,
+      "mean_abs_hidden_difference": 0.2105228304862976,
+      "causality_removed": true
+    }
+  }
+}
