@@ -167,3 +167,18 @@ Names in the code and on the wire.
 | Score | An ordered scale. The score field is the expected level. The legend field maps each level index to its text. |
 | confidence | How peaked the distribution is: one minus its entropy, divided by the log of the number of options. |
 | branched | Prefill the shared state once, fork the cache, and score each question suffix from that cache. |
+
+
+## Citation
+
+```bibtex
+@misc{foosynaptic_jevanyllm,
+  title={jev-any-llm: Adapter for JEV to connect any LLM backend},
+  author={fooSynaptic},
+  howpublished={https://github.com/fooSynaptic/jev-any-llm},
+  year={2026},
+  note={Accessed: 2026-09-29}
+}
+
+```
+
